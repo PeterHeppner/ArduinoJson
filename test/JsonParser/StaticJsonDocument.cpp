@@ -7,9 +7,9 @@
 
 using namespace Catch::Matchers;
 
-TEST_CASE("deserializeJson(StaticJsonVariant&)") {
+TEST_CASE("deserializeJson(StaticJsonDocument&)") {
   SECTION("Array") {
-    StaticJsonVariant<JSON_ARRAY_SIZE(2)> variant;
+    StaticJsonDocument<JSON_ARRAY_SIZE(2)> variant;
 
     char input[] = "[1,2]";
     JsonError err = deserializeJson(variant, input);
@@ -22,7 +22,7 @@ TEST_CASE("deserializeJson(StaticJsonVariant&)") {
   }
 
   SECTION("Should clear the JsonVariant") {
-    StaticJsonVariant<JSON_ARRAY_SIZE(2)> variant;
+    StaticJsonDocument<JSON_ARRAY_SIZE(2)> variant;
     char input[] = "[1,2]";
     deserializeJson(variant, input);
 

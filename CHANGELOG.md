@@ -8,7 +8,7 @@ HEAD
 * Fixed inconsistencies in nesting level counting (PR #695 from Zhenyu Wu)
 * Added `DynamicJsonArray` and `StaticJsonArray`
 * Added `DynamicJsonObject` and `StaticJsonObject`
-* Added `DynamicJsonVariant` and `StaticJsonVariant`
+* Added `DynamicJsonDocument` and `StaticJsonDocument`
 * Added `deserializeJson()`
 * Added `serializeJson()` and `serializeJsonPretty()`
 * Added `measureJson()` and `measureJsonPretty()`

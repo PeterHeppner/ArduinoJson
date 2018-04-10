@@ -5,32 +5,30 @@
 #pragma once
 
 #include "JsonVariant.hpp"
-#include "Memory/DynamicJsonBuffer.hpp"
+#include "Memory/StaticJsonBuffer.hpp"
 
 namespace ArduinoJson {
 
-class DynamicJsonVariant : public JsonVariant {
-  DynamicJsonBuffer _buffer;
+template <size_t CAPACITY = sizeof(JsonVariant)>
+class StaticJsonDocument : public JsonVariant {
+  StaticJsonBuffer<CAPACITY> _buffer;
 
  public:
-  DynamicJsonVariant() : JsonVariant() {}
-  DynamicJsonVariant(size_t capacity) : JsonVariant(), _buffer(capacity) {}
-
   template <typename T>
-  DynamicJsonVariant& operator=(const T& value) {
+  StaticJsonDocument& operator=(const T& value) {
     _buffer.clear();
     JsonVariant::operator=(value);
     return *this;
   }
 
   template <typename T>
-  DynamicJsonVariant& operator=(const T* value) {
+  StaticJsonDocument& operator=(const T* value) {
     _buffer.clear();
     JsonVariant::operator=(value);
     return *this;
   }
 
-  DynamicJsonBuffer& buffer() {
+  Internals::StaticJsonBufferBase& buffer() {
     return _buffer;
   }
 

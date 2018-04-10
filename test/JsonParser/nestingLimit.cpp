@@ -46,7 +46,7 @@ TEST_CASE("JsonParser nestingLimit") {
   }
 
   SECTION("deserializeJson(JsonVariant&)") {
-    DynamicJsonVariant var;
+    DynamicJsonDocument var;
 
     SECTION("limit = 0") {
       SHOULD_WORK(deserializeJson(var, "\"toto\"", 0));

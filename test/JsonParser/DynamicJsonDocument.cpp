@@ -7,8 +7,8 @@
 
 using namespace Catch::Matchers;
 
-TEST_CASE("deserializeJson(DynamicJsonVariant&)") {
-  DynamicJsonVariant variant;
+TEST_CASE("deserializeJson(DynamicJsonDocument&)") {
+  DynamicJsonDocument variant;
 
   SECTION("EmptyObject") {
     JsonError err = deserializeJson(variant, "{}");

@@ -5,7 +5,7 @@ createNestedObject	KEYWORD2
 deserializeJson	KEYWORD2
 DynamicJsonArray	KEYWORD1
 DynamicJsonObject	KEYWORD1
-DynamicJsonVariant	KEYWORD1
+DynamicJsonDocument	KEYWORD1
 get	KEYWORD2
 JsonArray	KEYWORD1
 JsonObject	KEYWORD1
@@ -15,4 +15,4 @@ serializeJsonPretty	KEYWORD2
 set	KEYWORD2
 StaticJsonArray	KEYWORD1
 StaticJsonObject	KEYWORD1
-StaticJsonVariant	KEYWORD1
+StaticJsonDocument	KEYWORD1

@@ -60,7 +60,7 @@ TEST_CASE("JsonVariant::operator[]") {
   }
 
   SECTION("ArraySetValue") {
-    DynamicJsonVariant var;
+    DynamicJsonDocument var;
     deserializeJson(var, "[\"hello\"]");
     var[0] = "world";
     REQUIRE(1 == var.size());
@@ -68,7 +68,7 @@ TEST_CASE("JsonVariant::operator[]") {
   }
 
   SECTION("NestedObjectSetValue") {
-    DynamicJsonVariant var;
+    DynamicJsonDocument var;
     deserializeJson(var, "[{}]");
     var[0]["hello"] = "world";
     REQUIRE(1 == var.size());

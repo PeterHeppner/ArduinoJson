@@ -16,7 +16,7 @@ class memstream : public std::istream {
 };
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
-  DynamicJsonVariant variant;
+  DynamicJsonDocument variant;
   memstream json(data, size);
   JsonError error = deserializeJson(variant, json);
   JsonVariant variant = jsonBuffer.parse(json);

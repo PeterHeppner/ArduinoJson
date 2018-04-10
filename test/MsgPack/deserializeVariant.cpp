@@ -7,7 +7,7 @@
 
 template <typename T, typename U>
 static void check(const char* input, U expected) {
-  DynamicJsonVariant variant;
+  DynamicJsonDocument variant;
 
   MsgPackError error = deserializeMsgPack(variant, input);
 
@@ -129,7 +129,7 @@ TEST_CASE("deserializeMsgPack(JsonVariant&)") {
   }
 
   SECTION("fixarray") {
-    DynamicJsonVariant variant;
+    DynamicJsonDocument variant;
 
     SECTION("empty") {
       const char* input = "\x90";
@@ -153,7 +153,7 @@ TEST_CASE("deserializeMsgPack(JsonVariant&)") {
   }
 
   SECTION("array 16") {
-    DynamicJsonVariant variant;
+    DynamicJsonDocument variant;
 
     SECTION("empty") {
       const char* input = "\xDC\x00\x00";
@@ -177,7 +177,7 @@ TEST_CASE("deserializeMsgPack(JsonVariant&)") {
   }
 
   SECTION("array 32") {
-    DynamicJsonVariant variant;
+    DynamicJsonDocument variant;
 
     SECTION("empty") {
       const char* input = "\xDD\x00\x00\x00\x00";
@@ -202,7 +202,7 @@ TEST_CASE("deserializeMsgPack(JsonVariant&)") {
   }
 
   SECTION("fixmap") {
-    DynamicJsonVariant variant;
+    DynamicJsonDocument variant;
 
     SECTION("empty") {
       const char* input = "\x80";
@@ -226,7 +226,7 @@ TEST_CASE("deserializeMsgPack(JsonVariant&)") {
   }
 
   SECTION("map 16") {
-    DynamicJsonVariant variant;
+    DynamicJsonDocument variant;
 
     SECTION("empty") {
       const char* input = "\xDE\x00\x00";
@@ -250,7 +250,7 @@ TEST_CASE("deserializeMsgPack(JsonVariant&)") {
   }
 
   SECTION("map 32") {
-    DynamicJsonVariant variant;
+    DynamicJsonDocument variant;
 
     SECTION("empty") {
       const char* input = "\xDF\x00\x00\x00\x00";

@@ -5,12 +5,12 @@
 #pragma once
 
 #include "ArduinoJson/DynamicJsonArray.hpp"
+#include "ArduinoJson/DynamicJsonDocument.hpp"
 #include "ArduinoJson/DynamicJsonObject.hpp"
-#include "ArduinoJson/DynamicJsonVariant.hpp"
 #include "ArduinoJson/MsgPack/MsgPackDeserializer.hpp"
 #include "ArduinoJson/StaticJsonArray.hpp"
+#include "ArduinoJson/StaticJsonDocument.hpp"
 #include "ArduinoJson/StaticJsonObject.hpp"
-#include "ArduinoJson/StaticJsonVariant.hpp"
 #include "ArduinoJson/deserializeJson.hpp"
 #include "ArduinoJson/deserializeMsgPack.hpp"
 

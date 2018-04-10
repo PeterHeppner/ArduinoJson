@@ -5,12 +5,12 @@
 add_executable(JsonParserTests
 	DynamicJsonArray.cpp
 	DynamicJsonObject.cpp
-	DynamicJsonVariant.cpp
+	DynamicJsonDocument.cpp
 	JsonError.cpp
 	nestingLimit.cpp
 	StaticJsonArray.cpp
 	StaticJsonObject.cpp
-	StaticJsonVariant.cpp
+	StaticJsonDocument.cpp
 )
 
 target_link_libraries(JsonParserTests catch)
