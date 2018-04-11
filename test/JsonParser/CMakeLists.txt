@@ -4,7 +4,7 @@
 
 add_executable(JsonParserTests
 	DynamicJsonArray.cpp
-	DynamicJsonObject.cpp
+	deserializeObject.cpp
 	DynamicJsonDocument.cpp
 	JsonError.cpp
 	nestingLimit.cpp
