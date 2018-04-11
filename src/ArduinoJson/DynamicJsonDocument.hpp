@@ -32,7 +32,7 @@ class DynamicJsonDocument : public JsonVariant {
   }
 
   JsonObject& becomeObject() {
-    _buffer.clear();
+    clear();
     JsonObject* object = new (&_buffer) JsonObject(&_buffer);
     if (!object) return JsonObject::invalid();
     JsonVariant::operator=(object);
@@ -44,7 +44,7 @@ class DynamicJsonDocument : public JsonVariant {
   }
 
   void clear() {
-    _buffer.clear();
+    JsonVariant::operator=(JsonVariant());
   }
 
   size_t memoryUsage() const {

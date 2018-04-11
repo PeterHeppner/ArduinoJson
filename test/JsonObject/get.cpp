@@ -8,7 +8,8 @@
 using namespace Catch::Matchers;
 
 TEST_CASE("JsonObject::get()") {
-  DynamicJsonObject obj;
+  DynamicJsonDocument doc;
+  JsonObject& obj = doc.becomeObject();
 
   SECTION("GetConstCharPointer_GivenStringLiteral") {
     obj.set("hello", "world");
