@@ -8,91 +8,91 @@
 using namespace Catch::Matchers;
 
 TEST_CASE("deserializeJson(DynamicJsonDocument&)") {
-  DynamicJsonDocument variant;
+  DynamicJsonDocument doc;
 
   SECTION("EmptyObject") {
-    JsonError err = deserializeJson(variant, "{}");
+    JsonError err = deserializeJson(doc, "{}");
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(variant.is<JsonObject>());
+    REQUIRE(doc.is<JsonObject>());
   }
 
   SECTION("EmptyArray") {
-    JsonError err = deserializeJson(variant, "[]");
+    JsonError err = deserializeJson(doc, "[]");
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(variant.is<JsonArray>());
+    REQUIRE(doc.is<JsonArray>());
   }
 
   SECTION("Integer") {
-    JsonError err = deserializeJson(variant, "-42");
+    JsonError err = deserializeJson(doc, "-42");
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(variant.is<int>());
-    REQUIRE_FALSE(variant.is<bool>());
-    REQUIRE(variant == -42);
+    REQUIRE(doc.is<int>());
+    REQUIRE_FALSE(doc.is<bool>());
+    REQUIRE(doc == -42);
   }
 
   SECTION("Double") {
-    JsonError err = deserializeJson(variant, "-1.23e+4");
+    JsonError err = deserializeJson(doc, "-1.23e+4");
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE_FALSE(variant.is<int>());
-    REQUIRE(variant.is<double>());
-    REQUIRE(variant.as<double>() == Approx(-1.23e+4));
+    REQUIRE_FALSE(doc.is<int>());
+    REQUIRE(doc.is<double>());
+    REQUIRE(doc.as<double>() == Approx(-1.23e+4));
   }
 
   SECTION("Double quoted string") {
-    JsonError err = deserializeJson(variant, "\"hello world\"");
+    JsonError err = deserializeJson(doc, "\"hello world\"");
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(variant.is<char*>());
-    REQUIRE_THAT(variant.as<char*>(), Equals("hello world"));
+    REQUIRE(doc.is<char*>());
+    REQUIRE_THAT(doc.as<char*>(), Equals("hello world"));
   }
 
   SECTION("Single quoted string") {
-    JsonError err = deserializeJson(variant, "\'hello world\'");
+    JsonError err = deserializeJson(doc, "\'hello world\'");
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(variant.is<char*>());
-    REQUIRE_THAT(variant.as<char*>(), Equals("hello world"));
+    REQUIRE(doc.is<char*>());
+    REQUIRE_THAT(doc.as<char*>(), Equals("hello world"));
   }
 
   SECTION("True") {
-    JsonError err = deserializeJson(variant, "true");
+    JsonError err = deserializeJson(doc, "true");
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(variant.is<bool>());
-    REQUIRE(variant == true);
+    REQUIRE(doc.is<bool>());
+    REQUIRE(doc == true);
   }
 
   SECTION("False") {
-    JsonError err = deserializeJson(variant, "false");
+    JsonError err = deserializeJson(doc, "false");
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(variant.is<bool>());
-    REQUIRE(variant == false);
+    REQUIRE(doc.is<bool>());
+    REQUIRE(doc == false);
   }
 
   SECTION("OpenBrace") {
-    JsonError err = deserializeJson(variant, "{");
+    JsonError err = deserializeJson(doc, "{");
 
     REQUIRE(err != JsonError::Ok);
   }
 
   SECTION("Incomplete string") {
-    JsonError err = deserializeJson(variant, "\"hello");
+    JsonError err = deserializeJson(doc, "\"hello");
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(variant.is<char*>());
-    REQUIRE_THAT(variant.as<char*>(), Equals("hello"));
+    REQUIRE(doc.is<char*>());
+    REQUIRE_THAT(doc.as<char*>(), Equals("hello"));
   }
 
   SECTION("Should clear the JsonVariant") {
-    deserializeJson(variant, "[1,2,3]");
-    deserializeJson(variant, "{}");
+    deserializeJson(doc, "[1,2,3]");
+    deserializeJson(doc, "{}");
 
-    REQUIRE(variant.is<JsonObject>());
-    REQUIRE(variant.memoryUsage() == JSON_OBJECT_SIZE(0));
+    REQUIRE(doc.is<JsonObject>());
+    REQUIRE(doc.memoryUsage() == JSON_OBJECT_SIZE(0));
   }
 }

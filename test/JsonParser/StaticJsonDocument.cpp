@@ -9,27 +9,27 @@ using namespace Catch::Matchers;
 
 TEST_CASE("deserializeJson(StaticJsonDocument&)") {
   SECTION("Array") {
-    StaticJsonDocument<JSON_ARRAY_SIZE(2)> variant;
+    StaticJsonDocument<JSON_ARRAY_SIZE(2)> doc;
 
     char input[] = "[1,2]";
-    JsonError err = deserializeJson(variant, input);
+    JsonError err = deserializeJson(doc, input);
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(variant.is<JsonArray>());
-    REQUIRE(variant[0] == 1);
-    REQUIRE(variant[1] == 2);
-    REQUIRE(variant.memoryUsage() == JSON_ARRAY_SIZE(2));
+    REQUIRE(doc.is<JsonArray>());
+    REQUIRE(doc[0] == 1);
+    REQUIRE(doc[1] == 2);
+    REQUIRE(doc.memoryUsage() == JSON_ARRAY_SIZE(2));
   }
 
-  SECTION("Should clear the JsonVariant") {
-    StaticJsonDocument<JSON_ARRAY_SIZE(2)> variant;
+  SECTION("Should clear the JsonDocument") {
+    StaticJsonDocument<JSON_ARRAY_SIZE(2)> doc;
     char input[] = "[1,2]";
-    deserializeJson(variant, input);
+    deserializeJson(doc, input);
 
-    JsonError err = deserializeJson(variant, "{}");
+    JsonError err = deserializeJson(doc, "{}");
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(variant.is<JsonObject>());
-    REQUIRE(variant.memoryUsage() == JSON_OBJECT_SIZE(0));
+    REQUIRE(doc.is<JsonObject>());
+    REQUIRE(doc.memoryUsage() == JSON_OBJECT_SIZE(0));
   }
 }

@@ -29,6 +29,7 @@ TEST_CASE("JsonError") {
     TEST_STRINGIFICATION(ColonExpected);
     TEST_STRINGIFICATION(TooDeep);
     TEST_STRINGIFICATION(NoMemory);
+    TEST_STRINGIFICATION(InvalidInput);
   }
 
   SECTION("as boolean") {
@@ -40,5 +41,6 @@ TEST_CASE("JsonError") {
     TEST_BOOLIFICATION(ColonExpected, true);
     TEST_BOOLIFICATION(TooDeep, true);
     TEST_BOOLIFICATION(NoMemory, true);
+    TEST_BOOLIFICATION(InvalidInput, true);
   }
 }

@@ -37,10 +37,10 @@ class JsonParser {
     return eat(_reader, charToSkip);
   }
 
-  const char *parseString();
   JsonError parseArray(JsonVariant &variant);
   JsonError parseObject(JsonVariant &variant);
   JsonError parseValue(JsonVariant &variant);
+  JsonError parseString(const char **result);
 
   static inline bool isBetween(char c, char min, char max) {
     return min <= c && c <= max;

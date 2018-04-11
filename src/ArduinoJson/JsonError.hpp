@@ -16,7 +16,8 @@ class JsonError {
     ClosingBracketExpected,
     ColonExpected,
     TooDeep,
-    NoMemory
+    NoMemory,
+    InvalidInput
   };
 
   JsonError(Code code) : _code(code) {}
@@ -59,6 +60,8 @@ class JsonError {
         return "TooDeep";
       case NoMemory:
         return "NoMemory";
+      case InvalidInput:
+        return "InvalidInput";
       default:
         return "???";
     }
@@ -71,6 +74,11 @@ class JsonError {
 #if ARDUINOJSON_ENABLE_STD_STREAM
 inline std::ostream& operator<<(std::ostream& s, const JsonError& e) {
   s << e.c_str();
+  return s;
+}
+
+inline std::ostream& operator<<(std::ostream& s, JsonError::Code c) {
+  s << JsonError(c).c_str();
   return s;
 }
 #endif

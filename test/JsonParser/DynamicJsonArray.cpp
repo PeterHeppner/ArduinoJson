@@ -143,10 +143,7 @@ TEST_CASE("deserializeJson(DynamicJsonArray&)") {
     SECTION("No quotes (empty strings)") {
       JsonError err = deserializeJson(arr, "[,]");
 
-      REQUIRE(err == JsonError::Ok);
-      REQUIRE(2 == arr.size());
-      REQUIRE(arr[0] == "");
-      REQUIRE(arr[1] == "");
+      REQUIRE(err == JsonError::InvalidInput);
     }
 
     SECTION("Closing single quotes missing") {

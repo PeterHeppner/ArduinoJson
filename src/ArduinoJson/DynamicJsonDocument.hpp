@@ -44,6 +44,7 @@ class DynamicJsonDocument : public JsonVariant {
   }
 
   void clear() {
+    _buffer.clear();
     JsonVariant::operator=(JsonVariant());
   }
 

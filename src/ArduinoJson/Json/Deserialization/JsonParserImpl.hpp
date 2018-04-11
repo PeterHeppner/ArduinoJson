@@ -55,14 +55,15 @@ ArduinoJson::Internals::JsonParser<TReader, TWriter>::parse(
   // Read each key value pair
   for (;;) {
     // 1 - Parse key
-    const char *key = parseString();
-    if (!key) return JsonError::NoMemory;
+    const char *key;
+    JsonError error = parseString(&key);
+    if (error) return error;
     if (!eat(':')) return JsonError::ColonExpected;
 
     // 2 - Parse value
     JsonVariant value;
     _nestingLimit--;
-    JsonError error = parse(value);
+    error = parse(value);
     _nestingLimit++;
     if (error != JsonError::Ok) return error;
     if (!object.set(key, value)) return JsonError::NoMemory;
@@ -116,8 +117,9 @@ inline ArduinoJson::JsonError
 ArduinoJson::Internals::JsonParser<TReader, TWriter>::parseValue(
     JsonVariant &variant) {
   bool hasQuotes = isQuote(_reader.current());
-  const char *value = parseString();
-  if (value == NULL) return JsonError::NoMemory;
+  const char *value;
+  JsonError error = parseString(&value);
+  if (error) return error;
   if (hasQuotes) {
     variant = value;
   } else {
@@ -127,8 +129,9 @@ ArduinoJson::Internals::JsonParser<TReader, TWriter>::parseValue(
 }
 
 template <typename TReader, typename TWriter>
-inline const char *
-ArduinoJson::Internals::JsonParser<TReader, TWriter>::parseString() {
+inline ArduinoJson::JsonError
+ArduinoJson::Internals::JsonParser<TReader, TWriter>::parseString(
+    const char **result) {
   typename RemoveReference<TWriter>::type::String str = _writer.startString();
 
   skipSpacesAndComments(_reader);
@@ -153,14 +156,17 @@ ArduinoJson::Internals::JsonParser<TReader, TWriter>::parseString() {
 
       str.append(c);
     }
-  } else {  // no quotes
-    for (;;) {
-      if (!canBeInNonQuotedString(c)) break;
+  } else if (canBeInNonQuotedString(c)) {  // no quotes
+    do {
       _reader.move();
       str.append(c);
       c = _reader.current();
-    }
+    } while (canBeInNonQuotedString(c));
+  } else {
+    return JsonError::InvalidInput;
   }
 
-  return str.c_str();
+  *result = str.c_str();
+  if (*result == NULL) return JsonError::NoMemory;
+  return JsonError::Ok;
 }

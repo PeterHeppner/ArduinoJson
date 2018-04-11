@@ -41,6 +41,7 @@ class StaticJsonDocument : public JsonVariant {
   }
 
   void clear() {
+    _buffer.clear();
     JsonVariant::operator=(JsonVariant());
   }
 
