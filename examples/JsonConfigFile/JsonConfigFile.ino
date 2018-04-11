@@ -29,22 +29,21 @@ void loadConfiguration(const char *filename, Config &config) {
   // Open file for reading
   File file = SD.open(filename);
 
-  // Allocate the memory pool on the stack.
-  // Don't forget to change the capacity to match your JSON document.
+  // Allocate the document on the stack.
+  // Don't forget to change the capacity to match your requirements.
   // Use arduinojson.org/assistant to compute the capacity.
-  StaticJsonObject<512> root;
+  StaticJsonDocument<512> doc;
 
-  // Parse the root object
-  JsonError error = deserializeJson(root, file);
-
+  // Deserialize the JSON document
+  JsonError error = deserializeJson(doc, file);
   if (error)
     Serial.println(F("Failed to read file, using default configuration"));
 
   // Copy values from the JsonObject to the Config
-  config.port = root["port"] | 2731;
-  strlcpy(config.hostname,                   // <- destination
-          root["hostname"] | "example.com",  // <- source
-          sizeof(config.hostname));          // <- destination's capacity
+  config.port = doc["port"] | 2731;
+  strlcpy(config.hostname,                  // <- destination
+          doc["hostname"] | "example.com",  // <- source
+          sizeof(config.hostname));         // <- destination's capacity
 
   // Close the file (File's destructor doesn't close the file)
   file.close();
@@ -65,14 +64,14 @@ void saveConfiguration(const char *filename, const Config &config) {
   // Allocate the memory pool on the stack
   // Don't forget to change the capacity to match your JSON document.
   // Use https://arduinojson.org/assistant/ to compute the capacity.
-  StaticJsonObject<256> root;
+  StaticJsonObject<256> doc;
 
   // Set the values
-  root["hostname"] = config.hostname;
-  root["port"] = config.port;
+  doc["hostname"] = config.hostname;
+  doc["port"] = config.port;
 
   // Serialize JSON to file
-  if (serializeJson(root, file) == 0) {
+  if (serializeJson(doc, file) == 0) {
     Serial.println(F("Failed to write to file"));
   }
 
