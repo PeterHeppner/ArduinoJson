@@ -23,7 +23,7 @@ ArduinoJson::Internals::JsonParser<TReader, TWriter>::parse(JsonArray &array) {
   if (_nestingLimit == 0) return JsonError::TooDeep;
 
   // Check opening braket
-  if (!eat('[')) return JsonError::OpeningBracketExpected;
+  if (!eat('[')) return JsonError::InvalidInput;
   if (eat(']')) return JsonError::Ok;
 
   // Read each value
@@ -38,7 +38,7 @@ ArduinoJson::Internals::JsonParser<TReader, TWriter>::parse(JsonArray &array) {
 
     // 2 - More values?
     if (eat(']')) return JsonError::Ok;
-    if (!eat(',')) return JsonError::ClosingBracketExpected;
+    if (!eat(',')) return JsonError::InvalidInput;
   }
 }
 
@@ -49,7 +49,7 @@ ArduinoJson::Internals::JsonParser<TReader, TWriter>::parse(
   if (_nestingLimit == 0) return JsonError::TooDeep;
 
   // Check opening brace
-  if (!eat('{')) return JsonError::OpeningBraceExpected;
+  if (!eat('{')) return JsonError::InvalidInput;
   if (eat('}')) return JsonError::Ok;
 
   // Read each key value pair
@@ -58,7 +58,7 @@ ArduinoJson::Internals::JsonParser<TReader, TWriter>::parse(
     const char *key;
     JsonError error = parseString(&key);
     if (error) return error;
-    if (!eat(':')) return JsonError::ColonExpected;
+    if (!eat(':')) return JsonError::InvalidInput;
 
     // 2 - Parse value
     JsonVariant value;
@@ -70,7 +70,7 @@ ArduinoJson::Internals::JsonParser<TReader, TWriter>::parse(
 
     // 3 - More keys/values?
     if (eat('}')) return JsonError::Ok;
-    if (!eat(',')) return JsonError::ClosingBraceExpected;
+    if (!eat(',')) return JsonError::InvalidInput;
   }
 }
 

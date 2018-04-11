@@ -8,17 +8,7 @@ namespace ArduinoJson {
 
 class JsonError {
  public:
-  enum Code {
-    Ok,
-    OpeningBraceExpected,
-    ClosingBraceExpected,
-    OpeningBracketExpected,
-    ClosingBracketExpected,
-    ColonExpected,
-    TooDeep,
-    NoMemory,
-    InvalidInput
-  };
+  enum Code { Ok, TooDeep, NoMemory, InvalidInput };
 
   JsonError(Code code) : _code(code) {}
 
@@ -46,16 +36,6 @@ class JsonError {
     switch (_code) {
       case Ok:
         return "Ok";
-      case OpeningBraceExpected:
-        return "OpeningBraceExpected";
-      case ClosingBraceExpected:
-        return "ClosingBraceExpected";
-      case OpeningBracketExpected:
-        return "OpeningBracketExpected";
-      case ClosingBracketExpected:
-        return "ClosingBracketExpected";
-      case ColonExpected:
-        return "ColonExpected";
       case TooDeep:
         return "TooDeep";
       case NoMemory:

@@ -187,17 +187,17 @@ TEST_CASE("deserialize JSON object") {
 
     SECTION("The closing brace is missing") {
       JsonError err = deserializeJson(doc, "{\"hello\":\"world\"");
-      REQUIRE(err == JsonError::ClosingBraceExpected);
+      REQUIRE(err == JsonError::InvalidInput);
     }
 
     SECTION("A quoted key without value") {
       JsonError err = deserializeJson(doc, "{\"key\"}");
-      REQUIRE(err == JsonError::ColonExpected);
+      REQUIRE(err == JsonError::InvalidInput);
     }
 
     SECTION("A non-quoted key without value") {
       JsonError err = deserializeJson(doc, "{key}");
-      REQUIRE(err == JsonError::ColonExpected);
+      REQUIRE(err == JsonError::InvalidInput);
     }
 
     SECTION("A dangling comma") {
