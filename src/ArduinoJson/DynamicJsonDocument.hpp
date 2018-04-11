@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "JsonObject.hpp"
 #include "JsonVariant.hpp"
 #include "Memory/DynamicJsonBuffer.hpp"
 
@@ -28,6 +29,14 @@ class DynamicJsonDocument : public JsonVariant {
     _buffer.clear();
     JsonVariant::operator=(value);
     return *this;
+  }
+
+  JsonObject& becomeObject() {
+    _buffer.clear();
+    JsonObject* object = new (&_buffer) JsonObject(&_buffer);
+    if (!object) return JsonObject::invalid();
+    JsonVariant::operator=(object);
+    return *object;
   }
 
   DynamicJsonBuffer& buffer() {
