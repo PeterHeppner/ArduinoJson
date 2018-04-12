@@ -17,7 +17,8 @@ void check(const JsonObject &obj, const std::string &expected) {
 }
 
 TEST_CASE("serializeJson(JsonObject)") {
-  DynamicJsonObject obj;
+  DynamicJsonDocument doc;
+  JsonObject &obj = doc.becomeObject();
 
   SECTION("EmptyObject") {
     check(obj, "{}");
@@ -102,12 +103,12 @@ TEST_CASE("serializeJson(JsonObject)") {
   }
 
   SECTION("ThreeNestedObjects") {
-    DynamicJsonObject b;
-    DynamicJsonObject c;
+    DynamicJsonDocument b;
+    DynamicJsonDocument c;
 
     obj.createNestedObject("a");
-    obj["b"] = b;
-    obj.set("c", c);
+    obj["b"] = b.becomeObject();
+    obj.set("c", c.becomeObject());
 
     check(obj, "{\"a\":{},\"b\":{},\"c\":{}}");
   }

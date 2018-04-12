@@ -18,7 +18,8 @@ void check(const JsonObject &obj, const std::string expected) {
 }
 
 TEST_CASE("serializeJsonPretty(JsonObject)") {
-  DynamicJsonObject obj;
+  DynamicJsonDocument doc;
+  JsonObject &obj = doc.becomeObject();
 
   SECTION("EmptyObject") {
     check(obj, "{}");
