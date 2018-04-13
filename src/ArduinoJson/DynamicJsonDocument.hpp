@@ -48,6 +48,11 @@ class DynamicJsonDocument : public JsonVariant {
     return *array;
   }
 
+  JsonVariant& toVariant() {
+    clear();
+    return *this;
+  }
+
   DynamicJsonBuffer& buffer() {
     return _buffer;
   }
