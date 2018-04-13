@@ -8,7 +8,7 @@
 
 TEST_CASE("JsonArray::operator[]") {
   DynamicJsonDocument doc;
-  JsonArray& _array = doc.becomeArray();
+  JsonArray& _array = doc.to<JsonArray>();
   _array.add(0);
 
   SECTION("int") {
@@ -53,7 +53,7 @@ TEST_CASE("JsonArray::operator[]") {
 
   SECTION("nested array") {
     DynamicJsonDocument doc2;
-    JsonArray& arr = doc2.becomeArray();
+    JsonArray& arr = doc2.to<JsonArray>();
 
     _array[0] = arr;
 
@@ -81,7 +81,7 @@ TEST_CASE("JsonArray::operator[]") {
 
   SECTION("array subscript") {
     DynamicJsonDocument doc2;
-    JsonArray& arr = doc2.becomeArray();
+    JsonArray& arr = doc2.to<JsonArray>();
     const char* str = "hello";
 
     arr.add(str);

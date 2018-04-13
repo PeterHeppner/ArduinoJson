@@ -42,7 +42,7 @@ TEST_CASE("std::stream") {
   SECTION("JsonArray") {
     std::ostringstream os;
     DynamicJsonDocument doc;
-    JsonArray& array = doc.becomeArray();
+    JsonArray& array = doc.to<JsonArray>();
     array.add("value");
     os << array;
     REQUIRE("[\"value\"]" == os.str());
@@ -51,7 +51,7 @@ TEST_CASE("std::stream") {
   SECTION("JsonArraySubscript") {
     std::ostringstream os;
     DynamicJsonDocument doc;
-    JsonArray& array = doc.becomeArray();
+    JsonArray& array = doc.to<JsonArray>();
     array.add("value");
     os << array[0];
     REQUIRE("\"value\"" == os.str());

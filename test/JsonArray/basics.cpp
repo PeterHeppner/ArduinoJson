@@ -7,7 +7,7 @@
 
 TEST_CASE("JsonArray basics") {
   DynamicJsonDocument doc;
-  JsonArray& array = doc.becomeArray();
+  JsonArray& array = doc.to<JsonArray>();
 
   SECTION("SuccessIsTrue") {
     REQUIRE(array.success());

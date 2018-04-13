@@ -27,7 +27,7 @@ TEST_CASE("std::string") {
 
   SECTION("JsonArray") {
     DynamicJsonDocument doc;
-    JsonArray &array = doc.becomeArray();
+    JsonArray &array = doc.to<JsonArray>();
 
     SECTION("add()") {
       std::string value("hello");
@@ -130,7 +130,7 @@ TEST_CASE("std::string") {
     SECTION("set(JsonArraySubscript)") {
       JsonObject &obj = doc.becomeObject();
       DynamicJsonDocument doc2;
-      JsonArray &arr = doc2.becomeArray();
+      JsonArray &arr = doc2.to<JsonArray>();
       arr.add("world");
 
       obj.set(std::string("hello"), arr[0]);

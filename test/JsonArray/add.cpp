@@ -7,7 +7,7 @@
 
 TEST_CASE("JsonArray::add()") {
   DynamicJsonDocument doc;
-  JsonArray& _array = doc.becomeArray();
+  JsonArray& _array = doc.to<JsonArray>();
 
   SECTION("int") {
     _array.add(123);
@@ -40,7 +40,7 @@ TEST_CASE("JsonArray::add()") {
 
   SECTION("nested array") {
     DynamicJsonDocument doc2;
-    JsonArray& arr = doc2.becomeArray();
+    JsonArray& arr = doc2.to<JsonArray>();
 
     _array.add(arr);
 
@@ -63,7 +63,7 @@ TEST_CASE("JsonArray::add()") {
   SECTION("array subscript") {
     const char* str = "hello";
     DynamicJsonDocument doc2;
-    JsonArray& arr = doc2.becomeArray();
+    JsonArray& arr = doc2.to<JsonArray>();
     arr.add(str);
 
     _array.add(arr[0]);

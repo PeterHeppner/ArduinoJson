@@ -73,7 +73,7 @@ TEST_CASE("JsonVariant::is()") {
 
   SECTION("JsonArray") {
     DynamicJsonDocument doc;
-    JsonArray& array = doc.becomeArray();
+    JsonArray& array = doc.to<JsonArray>();
     checkIsArray(array);
   }
 

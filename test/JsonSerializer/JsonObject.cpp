@@ -97,8 +97,8 @@ TEST_CASE("serializeJson(JsonObject)") {
     DynamicJsonDocument c;
 
     obj.createNestedArray("a");
-    obj["b"] = b.becomeArray();
-    obj.set("c", c.becomeArray());
+    obj["b"] = b.to<JsonArray>();
+    obj.set("c", c.to<JsonArray>());
 
     check(obj, "{\"a\":[],\"b\":[],\"c\":[]}");
   }

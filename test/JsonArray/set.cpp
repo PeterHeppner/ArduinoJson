@@ -9,7 +9,7 @@ using namespace Catch::Matchers;
 
 TEST_CASE("JsonArray::set()") {
   DynamicJsonDocument doc;
-  JsonArray& _array = doc.becomeArray();
+  JsonArray& _array = doc.to<JsonArray>();
   _array.add(0);
 
   SECTION("int") {
@@ -42,7 +42,7 @@ TEST_CASE("JsonArray::set()") {
 
   SECTION("nested array") {
     DynamicJsonDocument doc2;
-    JsonArray& arr = doc2.becomeArray();
+    JsonArray& arr = doc2.to<JsonArray>();
 
     _array.set(0, arr);
 
@@ -64,7 +64,7 @@ TEST_CASE("JsonArray::set()") {
 
   SECTION("array subscript") {
     DynamicJsonDocument doc2;
-    JsonArray& arr = doc2.becomeArray();
+    JsonArray& arr = doc2.to<JsonArray>();
     arr.add("hello");
 
     _array.set(0, arr[0]);

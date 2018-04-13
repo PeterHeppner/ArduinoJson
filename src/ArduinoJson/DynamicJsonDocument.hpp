@@ -40,7 +40,11 @@ class DynamicJsonDocument : public JsonVariant {
     return *object;
   }
 
-  JsonArray& becomeArray() {
+  // JsonArray& to<JsonArray>()
+  template <typename T>
+  typename Internals::EnableIf<Internals::IsSame<T, JsonArray>::value,
+                               JsonArray&>::type
+  to() {
     clear();
     JsonArray* array = new (&_buffer) JsonArray(&_buffer);
     if (!array) return JsonArray::invalid();
@@ -48,6 +52,7 @@ class DynamicJsonDocument : public JsonVariant {
     return *array;
   }
 
+  // JsonVariant& to<JsonVariant>()
   template <typename T>
   typename Internals::EnableIf<Internals::IsSame<T, JsonVariant>::value,
                                T&>::type
