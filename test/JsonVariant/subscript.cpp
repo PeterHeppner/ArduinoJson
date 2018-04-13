@@ -7,7 +7,8 @@
 
 TEST_CASE("JsonVariant::operator[]") {
   SECTION("Array") {
-    DynamicJsonArray array;
+    DynamicJsonDocument doc;
+    JsonArray& array = doc.becomeArray();
     array.add("element at index 0");
     array.add("element at index 1");
 

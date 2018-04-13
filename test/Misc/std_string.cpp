@@ -13,18 +13,21 @@ static void eraseString(std::string &str) {
 TEST_CASE("std::string") {
   DynamicJsonBuffer jb;
 
+  SECTION("deserializeJson duplicates content") {
+    std::string json("[\"hello\"]");
+
+    DynamicJsonDocument doc;
+    JsonError err = deserializeJson(doc, json);
+    eraseString(json);
+
+    JsonArray &array = doc.as<JsonArray>();
+    REQUIRE(err == JsonError::Ok);
+    REQUIRE(std::string("hello") == array[0]);
+  }
+
   SECTION("JsonArray") {
-    DynamicJsonArray array;
-
-    SECTION("deserializeJson") {
-      std::string json("[\"hello\"]");
-
-      JsonError err = deserializeJson(array, json);
-      eraseString(json);
-
-      REQUIRE(err == JsonError::Ok);
-      REQUIRE(std::string("hello") == array[0]);
-    }
+    DynamicJsonDocument doc;
+    JsonArray &array = doc.becomeArray();
 
     SECTION("add()") {
       std::string value("hello");
@@ -126,7 +129,8 @@ TEST_CASE("std::string") {
 
     SECTION("set(JsonArraySubscript)") {
       JsonObject &obj = doc.becomeObject();
-      DynamicJsonArray arr;
+      DynamicJsonDocument doc2;
+      JsonArray &arr = doc2.becomeArray();
       arr.add("world");
 
       obj.set(std::string("hello"), arr[0]);

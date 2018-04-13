@@ -41,7 +41,8 @@ TEST_CASE("std::stream") {
 
   SECTION("JsonArray") {
     std::ostringstream os;
-    DynamicJsonArray array;
+    DynamicJsonDocument doc;
+    JsonArray& array = doc.becomeArray();
     array.add("value");
     os << array;
     REQUIRE("[\"value\"]" == os.str());
@@ -49,7 +50,8 @@ TEST_CASE("std::stream") {
 
   SECTION("JsonArraySubscript") {
     std::ostringstream os;
-    DynamicJsonArray array;
+    DynamicJsonDocument doc;
+    JsonArray& array = doc.becomeArray();
     array.add("value");
     os << array[0];
     REQUIRE("\"value\"" == os.str());
@@ -57,8 +59,9 @@ TEST_CASE("std::stream") {
 
   SECTION("ParseArray") {
     std::istringstream json(" [ 42 /* comment */ ] ");
-    DynamicJsonArray arr;
-    JsonError err = deserializeJson(arr, json);
+    DynamicJsonDocument doc;
+    JsonError err = deserializeJson(doc, json);
+    JsonArray& arr = doc.as<JsonArray>();
 
     REQUIRE(err == JsonError::Ok);
     REQUIRE(1 == arr.size());

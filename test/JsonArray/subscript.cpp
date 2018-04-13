@@ -7,7 +7,8 @@
 #include <catch.hpp>
 
 TEST_CASE("JsonArray::operator[]") {
-  DynamicJsonArray _array;
+  DynamicJsonDocument doc;
+  JsonArray& _array = doc.becomeArray();
   _array.add(0);
 
   SECTION("int") {
@@ -51,7 +52,8 @@ TEST_CASE("JsonArray::operator[]") {
   }
 
   SECTION("nested array") {
-    DynamicJsonArray arr;
+    DynamicJsonDocument doc2;
+    JsonArray& arr = doc2.becomeArray();
 
     _array[0] = arr;
 
@@ -64,8 +66,8 @@ TEST_CASE("JsonArray::operator[]") {
   }
 
   SECTION("nested object") {
-    DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    DynamicJsonDocument doc2;
+    JsonObject& obj = doc2.becomeObject();
 
     _array[0] = obj;
 
@@ -78,7 +80,8 @@ TEST_CASE("JsonArray::operator[]") {
   }
 
   SECTION("array subscript") {
-    DynamicJsonArray arr;
+    DynamicJsonDocument doc2;
+    JsonArray& arr = doc2.becomeArray();
     const char* str = "hello";
 
     arr.add(str);
@@ -90,8 +93,8 @@ TEST_CASE("JsonArray::operator[]") {
 
   SECTION("object subscript") {
     const char* str = "hello";
-    DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    DynamicJsonDocument doc2;
+    JsonObject& obj = doc2.becomeObject();
 
     obj["x"] = str;
 
@@ -103,18 +106,18 @@ TEST_CASE("JsonArray::operator[]") {
   SECTION("should not duplicate const char*") {
     _array[0] = "world";
     const size_t expectedSize = JSON_ARRAY_SIZE(1);
-    REQUIRE(expectedSize == _array.memoryUsage());
+    REQUIRE(expectedSize == doc.memoryUsage());
   }
 
   SECTION("should duplicate char*") {
     _array[0] = const_cast<char*>("world");
     const size_t expectedSize = JSON_ARRAY_SIZE(1) + 6;
-    REQUIRE(expectedSize == _array.memoryUsage());
+    REQUIRE(expectedSize == doc.memoryUsage());
   }
 
   SECTION("should duplicate std::string") {
     _array[0] = std::string("world");
     const size_t expectedSize = JSON_ARRAY_SIZE(1) + 6;
-    REQUIRE(expectedSize == _array.memoryUsage());
+    REQUIRE(expectedSize == doc.memoryUsage());
   }
 }

@@ -179,7 +179,10 @@ TEST_CASE("JsonVariant comparisons") {
   }
 
   SECTION("ArrayInVariant") {
-    DynamicJsonArray array1, array2;
+    DynamicJsonDocument doc1;
+    JsonArray& array1 = doc1.becomeArray();
+    DynamicJsonDocument doc2;
+    JsonArray& array2 = doc2.becomeArray();
 
     JsonVariant variant1 = array1;
     JsonVariant variant2 = array1;
@@ -210,10 +213,11 @@ TEST_CASE("JsonVariant comparisons") {
   }
 
   SECTION("VariantsOfDifferentTypes") {
-    DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    DynamicJsonDocument doc1;
+    JsonObject& obj = doc1.becomeObject();
 
-    DynamicJsonArray arr;
+    DynamicJsonDocument doc2;
+    JsonArray& arr = doc2.becomeArray();
     JsonVariant variants[] = {
         true, 42, 666.667, "hello", arr, obj,
     };

@@ -40,6 +40,14 @@ class StaticJsonDocument : public JsonVariant {
     return *object;
   }
 
+  JsonArray& becomeArray() {
+    clear();
+    JsonArray* array = new (&_buffer) JsonArray(&_buffer);
+    if (!array) return JsonArray::invalid();
+    JsonVariant::operator=(array);
+    return *array;
+  }
+
   void clear() {
     _buffer.clear();
     JsonVariant::operator=(JsonVariant());

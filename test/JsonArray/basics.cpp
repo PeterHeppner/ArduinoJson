@@ -6,7 +6,8 @@
 #include <catch.hpp>
 
 TEST_CASE("JsonArray basics") {
-  DynamicJsonArray array;
+  DynamicJsonDocument doc;
+  JsonArray& array = doc.becomeArray();
 
   SECTION("SuccessIsTrue") {
     REQUIRE(array.success());

@@ -17,7 +17,8 @@ TEST_CASE("JsonVariant::success()") {
   }
 
   SECTION("ReturnsTrue_WhenEmptyArray") {
-    DynamicJsonArray array;
+    DynamicJsonDocument doc;
+    JsonArray& array = doc.becomeArray();
 
     JsonVariant variant = array;
     REQUIRE(true == variant.success());

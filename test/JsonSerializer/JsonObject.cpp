@@ -93,11 +93,12 @@ TEST_CASE("serializeJson(JsonObject)") {
   }
 
   SECTION("ThreeNestedArrays") {
-    DynamicJsonArray b, c;
+    DynamicJsonDocument b;
+    DynamicJsonDocument c;
 
     obj.createNestedArray("a");
-    obj["b"] = b;
-    obj.set("c", c);
+    obj["b"] = b.becomeArray();
+    obj.set("c", c.becomeArray());
 
     check(obj, "{\"a\":[],\"b\":[],\"c\":[]}");
   }

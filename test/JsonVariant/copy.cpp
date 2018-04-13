@@ -53,7 +53,8 @@ TEST_CASE("JsonVariant copy") {
   }
 
   SECTION("ArraysAreCopiedByReference") {
-    DynamicJsonArray array;
+    DynamicJsonDocument doc;
+    JsonArray& array = doc.becomeArray();
 
     _variant1 = array;
 

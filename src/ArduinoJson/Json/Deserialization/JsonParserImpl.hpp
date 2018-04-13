@@ -150,7 +150,7 @@ ArduinoJson::Internals::JsonParser<TReader, TWriter>::parseString(
       if (c == '\\') {
         // replace char
         c = Encoding::unescapeChar(_reader.current());
-        if (c == '\0') break;
+        if (c == '\0') return JsonError::InvalidInput;
         _reader.move();
       }
 

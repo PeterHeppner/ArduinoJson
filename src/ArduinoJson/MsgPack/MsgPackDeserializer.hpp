@@ -39,7 +39,7 @@ class MsgPackDeserializer {
     } else if (c == 0xdd) {
       n = readInteger<uint32_t>();
     } else {
-      return MsgPackError::NotAnArray;
+      return 666;
     }
 
     return readArray(array, n);
@@ -56,7 +56,7 @@ class MsgPackDeserializer {
     } else if (c == 0xdf) {
       n = readInteger<uint32_t>();
     } else {
-      return MsgPackError::NotAnObject;
+      return 666;
     }
 
     return readObject(object, n);

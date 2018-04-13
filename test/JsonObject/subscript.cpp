@@ -52,7 +52,8 @@ TEST_CASE("JsonObject::operator[]") {
   }
 
   SECTION("array") {
-    DynamicJsonArray arr;
+    DynamicJsonDocument doc2;
+    JsonArray& arr = doc2.becomeArray();
 
     obj["hello"] = arr;
 
@@ -85,7 +86,8 @@ TEST_CASE("JsonObject::operator[]") {
   }
 
   SECTION("array subscript") {
-    DynamicJsonArray arr;
+    DynamicJsonDocument doc2;
+    JsonArray& arr = doc2.becomeArray();
     arr.add(42);
 
     obj["a"] = arr[0];

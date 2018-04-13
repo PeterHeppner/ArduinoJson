@@ -88,6 +88,11 @@ TEST_CASE("deserializeJson(DynamicJsonDocument&)") {
     REQUIRE_THAT(doc.as<char*>(), Equals("hello"));
   }
 
+  SECTION("Unterminated escape sequence") {
+    JsonError err = deserializeJson(doc, "\"\\\0\"");
+    REQUIRE(err == JsonError::InvalidInput);
+  }
+
   SECTION("Should clear the JsonVariant") {
     deserializeJson(doc, "[1,2,3]");
     deserializeJson(doc, "{}");

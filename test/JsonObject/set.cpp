@@ -43,7 +43,8 @@ TEST_CASE("JsonObject::set()") {
   }
 
   SECTION("nested array") {
-    DynamicJsonArray arr;
+    DynamicJsonDocument doc2;
+    JsonArray& arr = doc2.becomeArray();
 
     obj.set("hello", arr);
 
@@ -64,7 +65,8 @@ TEST_CASE("JsonObject::set()") {
   }
 
   SECTION("array subscript") {
-    DynamicJsonArray arr;
+    DynamicJsonDocument doc2;
+    JsonArray& arr = doc2.becomeArray();
     arr.add(42);
 
     obj.set("a", arr[0]);

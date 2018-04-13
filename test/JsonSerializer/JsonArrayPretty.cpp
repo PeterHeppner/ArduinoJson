@@ -15,7 +15,8 @@ static void check(JsonArray& array, std::string expected) {
 }
 
 TEST_CASE("serializeJsonPretty(JsonArray)") {
-  DynamicJsonArray array;
+  DynamicJsonDocument doc;
+  JsonArray& array = doc.becomeArray();
 
   SECTION("Empty") {
     check(array, "[]");

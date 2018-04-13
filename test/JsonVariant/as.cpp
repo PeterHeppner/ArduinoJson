@@ -202,7 +202,8 @@ TEST_CASE("JsonVariant::as()") {
   }
 
   SECTION("ArrayAsString") {
-    DynamicJsonArray arr;
+    DynamicJsonDocument doc;
+    JsonArray& arr = doc.becomeArray();
     arr.add(4);
     arr.add(2);
 
@@ -211,7 +212,8 @@ TEST_CASE("JsonVariant::as()") {
   }
 
   SECTION("ArrayAsJsonArray") {
-    DynamicJsonArray arr;
+    DynamicJsonDocument doc;
+    JsonArray& arr = doc.becomeArray();
 
     JsonVariant variant = arr;
     REQUIRE(&arr == &variant.as<JsonArray&>());

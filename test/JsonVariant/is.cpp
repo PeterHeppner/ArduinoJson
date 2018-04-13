@@ -72,7 +72,8 @@ TEST_CASE("JsonVariant::is()") {
   DynamicJsonBuffer jsonBuffer;
 
   SECTION("JsonArray") {
-    DynamicJsonArray array;
+    DynamicJsonDocument doc;
+    JsonArray& array = doc.becomeArray();
     checkIsArray(array);
   }
 
