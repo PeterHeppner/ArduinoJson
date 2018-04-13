@@ -7,7 +7,7 @@
 
 TEST_CASE("JsonObject basics") {
   DynamicJsonDocument doc;
-  JsonObject& obj = doc.becomeObject();
+  JsonObject& obj = doc.to<JsonObject>();
 
   SECTION("SuccessIsTrue") {
     REQUIRE(obj.success());

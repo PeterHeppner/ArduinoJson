@@ -48,7 +48,7 @@ void loop() {
   StaticJsonDocument<500> doc;
 
   // Make our document represent an object
-  JsonObject& root = doc.becomeObject();
+  JsonObject& root = doc.to<JsonObject>();
 
   // Create the "analog" array
   JsonArray& analogValues = root.createNestedArray("analog");

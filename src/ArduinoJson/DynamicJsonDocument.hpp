@@ -32,7 +32,11 @@ class DynamicJsonDocument : public JsonVariant {
     return *this;
   }
 
-  JsonObject& becomeObject() {
+  // JsonObject& to<JsonObject>()
+  template <typename T>
+  typename Internals::EnableIf<Internals::IsSame<T, JsonObject>::value,
+                               JsonObject&>::type
+  to() {
     clear();
     JsonObject* object = new (&_buffer) JsonObject(&_buffer);
     if (!object) return JsonObject::invalid();

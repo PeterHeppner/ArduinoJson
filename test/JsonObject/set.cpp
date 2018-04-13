@@ -8,7 +8,7 @@
 
 TEST_CASE("JsonObject::set()") {
   DynamicJsonDocument doc;
-  JsonObject& obj = doc.becomeObject();
+  JsonObject& obj = doc.to<JsonObject>();
 
   SECTION("int") {
     obj.set("hello", 123);
@@ -55,7 +55,7 @@ TEST_CASE("JsonObject::set()") {
 
   SECTION("nested object") {
     DynamicJsonDocument doc2;
-    JsonObject& obj2 = doc2.becomeObject();
+    JsonObject& obj2 = doc2.to<JsonObject>();
 
     obj.set("hello", obj2);
 
@@ -76,7 +76,7 @@ TEST_CASE("JsonObject::set()") {
 
   SECTION("object subscript") {
     DynamicJsonDocument doc2;
-    JsonObject& obj2 = doc2.becomeObject();
+    JsonObject& obj2 = doc2.to<JsonObject>();
     obj2.set("x", 42);
 
     obj.set("a", obj2["x"]);
@@ -86,14 +86,14 @@ TEST_CASE("JsonObject::set()") {
 
   SECTION("returns true when allocation succeeds") {
     StaticJsonDocument<JSON_OBJECT_SIZE(1) + 15> doc2;
-    JsonObject& obj2 = doc2.becomeObject();
+    JsonObject& obj2 = doc2.to<JsonObject>();
 
     REQUIRE(true == obj2.set(std::string("hello"), std::string("world")));
   }
 
   SECTION("returns false when allocation fails") {
     StaticJsonDocument<JSON_OBJECT_SIZE(1) + 10> doc2;
-    JsonObject& obj2 = doc2.becomeObject();
+    JsonObject& obj2 = doc2.to<JsonObject>();
 
     REQUIRE(false == obj2.set(std::string("hello"), std::string("world")));
   }

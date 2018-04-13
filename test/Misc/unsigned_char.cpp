@@ -96,7 +96,7 @@ TEST_CASE("unsigned char string") {
     unsigned char key[] = "hello";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj[key] = "world";
 
     REQUIRE(std::string("world") == obj["hello"]);
@@ -107,7 +107,7 @@ TEST_CASE("unsigned char string") {
     unsigned char value[] = "world";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj["hello"] = value;
 
     REQUIRE(std::string("world") == obj["hello"]);
@@ -117,7 +117,7 @@ TEST_CASE("unsigned char string") {
     unsigned char value[] = "world";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj["hello"].set(value);
 
     REQUIRE(std::string("world") == obj["hello"]);
@@ -148,7 +148,7 @@ TEST_CASE("unsigned char string") {
     unsigned char key[] = "hello";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj.set(key, "world");
 
     REQUIRE(std::string("world") == obj["hello"]);
@@ -158,7 +158,7 @@ TEST_CASE("unsigned char string") {
     unsigned char value[] = "world";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj.set("hello", value);
 
     REQUIRE(std::string("world") == obj["hello"]);
@@ -168,7 +168,7 @@ TEST_CASE("unsigned char string") {
     unsigned char key[] = "world";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj.set(key, key);
 
     REQUIRE(std::string("world") == obj["world"]);
@@ -208,7 +208,7 @@ TEST_CASE("unsigned char string") {
     unsigned char key[] = "hello";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj.createNestedArray(key);
   }
 
@@ -216,7 +216,7 @@ TEST_CASE("unsigned char string") {
     unsigned char key[] = "hello";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj.createNestedObject(key);
   }
 

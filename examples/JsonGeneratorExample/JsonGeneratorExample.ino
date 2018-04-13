@@ -24,7 +24,7 @@ void setup() {
   // DynamicJsonDocument  doc(200);
 
   // Make our document be an Object
-  JsonObject& root = doc.becomeObject();
+  JsonObject& root = doc.to<JsonObject>();
 
   // Add values in the object
   //

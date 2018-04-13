@@ -132,7 +132,7 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "hello");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj[vla] = "world";
 
     REQUIRE(std::string("world") == obj["hello"]);
@@ -145,7 +145,7 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "world");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj["hello"] = vla;
 
     REQUIRE(std::string("world") == obj["hello"].as<char*>());
@@ -157,7 +157,7 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "world");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj["hello"].set(vla);
 
     REQUIRE(std::string("world") == obj["hello"].as<char*>());
@@ -195,7 +195,7 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "hello");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj.set(vla, "world");
 
     REQUIRE(std::string("world") == obj["hello"]);
@@ -207,7 +207,7 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "world");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj.set("hello", vla);
 
     REQUIRE(std::string("world") == obj["hello"]);
@@ -219,7 +219,7 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "world");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj.set(vla, vla);
 
     REQUIRE(std::string("world") == obj["world"]);
@@ -268,7 +268,7 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "hello");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj.createNestedArray(vla);
   }
 
@@ -278,7 +278,7 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "hello");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
+    JsonObject& obj = doc.to<JsonObject>();
     obj.createNestedObject(vla);
   }
 

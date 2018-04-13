@@ -24,7 +24,7 @@ TEST_CASE("std::stream") {
   SECTION("JsonObject") {
     std::ostringstream os;
     DynamicJsonDocument doc;
-    JsonObject& object = doc.becomeObject();
+    JsonObject& object = doc.to<JsonObject>();
     object["key"] = "value";
     os << object;
     REQUIRE("{\"key\":\"value\"}" == os.str());
@@ -33,7 +33,7 @@ TEST_CASE("std::stream") {
   SECTION("JsonObjectSubscript") {
     std::ostringstream os;
     DynamicJsonDocument doc;
-    JsonObject& object = doc.becomeObject();
+    JsonObject& object = doc.to<JsonObject>();
     object["key"] = "value";
     os << object["key"];
     REQUIRE("\"value\"" == os.str());

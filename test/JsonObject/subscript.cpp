@@ -7,7 +7,7 @@
 
 TEST_CASE("JsonObject::operator[]") {
   DynamicJsonDocument doc;
-  JsonObject& obj = doc.becomeObject();
+  JsonObject& obj = doc.to<JsonObject>();
 
   SECTION("int") {
     obj["hello"] = 123;
@@ -70,7 +70,7 @@ TEST_CASE("JsonObject::operator[]") {
 
   SECTION("object") {
     DynamicJsonDocument doc2;
-    JsonObject& obj2 = doc2.becomeObject();
+    JsonObject& obj2 = doc2.to<JsonObject>();
 
     obj["hello"] = obj2;
 
@@ -97,7 +97,7 @@ TEST_CASE("JsonObject::operator[]") {
 
   SECTION("object subscript") {
     DynamicJsonDocument doc2;
-    JsonObject& obj2 = doc2.becomeObject();
+    JsonObject& obj2 = doc2.to<JsonObject>();
     obj2.set("x", 42);
 
     obj["a"] = obj2["x"];

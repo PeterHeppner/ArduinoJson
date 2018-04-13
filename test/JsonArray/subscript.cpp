@@ -67,7 +67,7 @@ TEST_CASE("JsonArray::operator[]") {
 
   SECTION("nested object") {
     DynamicJsonDocument doc2;
-    JsonObject& obj = doc2.becomeObject();
+    JsonObject& obj = doc2.to<JsonObject>();
 
     _array[0] = obj;
 
@@ -94,7 +94,7 @@ TEST_CASE("JsonArray::operator[]") {
   SECTION("object subscript") {
     const char* str = "hello";
     DynamicJsonDocument doc2;
-    JsonObject& obj = doc2.becomeObject();
+    JsonObject& obj = doc2.to<JsonObject>();
 
     obj["x"] = str;
 

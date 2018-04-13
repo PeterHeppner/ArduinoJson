@@ -197,9 +197,9 @@ TEST_CASE("JsonVariant comparisons") {
 
   SECTION("ObjectInVariant") {
     DynamicJsonDocument doc1;
-    JsonObject& obj1 = doc1.becomeObject();
+    JsonObject& obj1 = doc1.to<JsonObject>();
     DynamicJsonDocument doc2;
-    JsonObject& obj2 = doc2.becomeObject();
+    JsonObject& obj2 = doc2.to<JsonObject>();
 
     JsonVariant variant1 = obj1;
     JsonVariant variant2 = obj1;
@@ -214,7 +214,7 @@ TEST_CASE("JsonVariant comparisons") {
 
   SECTION("VariantsOfDifferentTypes") {
     DynamicJsonDocument doc1;
-    JsonObject& obj = doc1.becomeObject();
+    JsonObject& obj = doc1.to<JsonObject>();
 
     DynamicJsonDocument doc2;
     JsonArray& arr = doc2.to<JsonArray>();
