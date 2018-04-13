@@ -83,13 +83,15 @@ TEST_CASE("JsonObject::set()") {
   }
 
   SECTION("returns true when allocation succeeds") {
-    StaticJsonObject<JSON_OBJECT_SIZE(1) + 15> obj2;
+    StaticJsonDocument<JSON_OBJECT_SIZE(1) + 15> doc2;
+    JsonObject& obj2 = doc2.becomeObject();
 
     REQUIRE(true == obj2.set(std::string("hello"), std::string("world")));
   }
 
   SECTION("returns false when allocation fails") {
-    StaticJsonObject<JSON_OBJECT_SIZE(1) + 10> obj2;
+    StaticJsonDocument<JSON_OBJECT_SIZE(1) + 10> doc2;
+    JsonObject& obj2 = doc2.becomeObject();
 
     REQUIRE(false == obj2.set(std::string("hello"), std::string("world")));
   }

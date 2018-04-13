@@ -22,8 +22,8 @@ TEST_CASE("unsigned char string") {
   SECTION("JsonBuffer::parseObject") {
     unsigned char json[] = "{\"a\":42}";
 
-    StaticJsonObject<JSON_OBJECT_SIZE(1)> obj;
-    JsonError err = deserializeJson(obj, json);
+    StaticJsonDocument<JSON_OBJECT_SIZE(1)> doc;
+    JsonError err = deserializeJson(doc, json);
 
     REQUIRE(err == JsonError::Ok);
   }
@@ -128,9 +128,9 @@ TEST_CASE("unsigned char string") {
     unsigned char key[] = "hello";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
-    deserializeJson(obj, "{\"hello\":\"world\"}");
+    deserializeJson(doc, "{\"hello\":\"world\"}");
 
+    JsonObject& obj = doc.as<JsonObject>();
     REQUIRE(std::string("world") == obj[key]);
   }
 #endif
@@ -139,9 +139,8 @@ TEST_CASE("unsigned char string") {
     unsigned char key[] = "hello";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
-    deserializeJson(obj, "{\"hello\":\"world\"}");
-
+    deserializeJson(doc, "{\"hello\":\"world\"}");
+    JsonObject& obj = doc.as<JsonObject>();
     REQUIRE(std::string("world") == obj.get<char*>(key));
   }
 
@@ -179,9 +178,8 @@ TEST_CASE("unsigned char string") {
     unsigned char key[] = "hello";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
-    deserializeJson(obj, "{\"hello\":\"world\"}");
-
+    deserializeJson(doc, "{\"hello\":\"world\"}");
+    JsonObject& obj = doc.as<JsonObject>();
     REQUIRE(true == obj.containsKey(key));
   }
 
@@ -189,8 +187,8 @@ TEST_CASE("unsigned char string") {
     unsigned char key[] = "hello";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
-    deserializeJson(obj, "{\"hello\":\"world\"}");
+    deserializeJson(doc, "{\"hello\":\"world\"}");
+    JsonObject& obj = doc.as<JsonObject>();
     obj.remove(key);
 
     REQUIRE(0 == obj.size());
@@ -200,8 +198,8 @@ TEST_CASE("unsigned char string") {
     unsigned char key[] = "hello";
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
-    deserializeJson(obj, "{\"hello\":42}");
+    deserializeJson(doc, "{\"hello\":42}");
+    JsonObject& obj = doc.as<JsonObject>();
 
     REQUIRE(true == obj.is<int>(key));
   }

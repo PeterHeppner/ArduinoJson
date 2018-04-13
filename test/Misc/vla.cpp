@@ -33,10 +33,10 @@ TEST_CASE("Variable Length Array") {
     char vla[i];
     strcpy(vla, "{\"a\":42}");
 
-    StaticJsonObject<JSON_OBJECT_SIZE(1)> obj;
-    deserializeJson(obj, vla);
+    StaticJsonDocument<JSON_OBJECT_SIZE(1)> doc;
+    JsonError error = deserializeJson(doc, vla);
 
-    REQUIRE(true == obj.success());
+    REQUIRE(error == JsonError::Ok);
   }
 
   SECTION("Parse") {
@@ -170,9 +170,9 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "hello");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
-    deserializeJson(obj, "{\"hello\":\"world\"}");
+    deserializeJson(doc, "{\"hello\":\"world\"}");
 
+    JsonObject& obj = doc.as<JsonObject>();
     REQUIRE(std::string("world") == obj[vla]);
   }
 #endif
@@ -183,9 +183,9 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "hello");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
-    deserializeJson(obj, "{\"hello\":\"world\"}");
+    deserializeJson(doc, "{\"hello\":\"world\"}");
 
+    JsonObject& obj = doc.as<JsonObject>();
     REQUIRE(std::string("world") == obj.get<char*>(vla));
   }
 
@@ -231,9 +231,9 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "hello");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
-    deserializeJson(obj, "{\"hello\":\"world\"}");
+    deserializeJson(doc, "{\"hello\":\"world\"}");
 
+    JsonObject& obj = doc.as<JsonObject>();
     REQUIRE(true == obj.containsKey(vla));
   }
 
@@ -243,8 +243,8 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "hello");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
-    deserializeJson(obj, "{\"hello\":\"world\"}");
+    deserializeJson(doc, "{\"hello\":\"world\"}");
+    JsonObject& obj = doc.as<JsonObject>();
     obj.remove(vla);
 
     REQUIRE(0 == obj.size());
@@ -256,8 +256,8 @@ TEST_CASE("Variable Length Array") {
     strcpy(vla, "hello");
 
     DynamicJsonDocument doc;
-    JsonObject& obj = doc.becomeObject();
-    deserializeJson(obj, "{\"hello\":42}");
+    deserializeJson(doc, "{\"hello\":42}");
+    JsonObject& obj = doc.as<JsonObject>();
 
     REQUIRE(true == obj.is<int>(vla));
   }

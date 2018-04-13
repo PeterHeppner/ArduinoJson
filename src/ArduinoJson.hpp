@@ -9,7 +9,6 @@
 #include "ArduinoJson/MsgPack/MsgPackDeserializer.hpp"
 #include "ArduinoJson/StaticJsonArray.hpp"
 #include "ArduinoJson/StaticJsonDocument.hpp"
-#include "ArduinoJson/StaticJsonObject.hpp"
 #include "ArduinoJson/deserializeJson.hpp"
 #include "ArduinoJson/deserializeMsgPack.hpp"
 
