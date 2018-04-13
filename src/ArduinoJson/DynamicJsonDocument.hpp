@@ -48,7 +48,10 @@ class DynamicJsonDocument : public JsonVariant {
     return *array;
   }
 
-  JsonVariant& toVariant() {
+  template <typename T>
+  typename Internals::EnableIf<Internals::IsSame<T, JsonVariant>::value,
+                               T&>::type
+  to() {
     clear();
     return *this;
   }

@@ -48,7 +48,11 @@ class StaticJsonDocument : public JsonVariant {
     return *array;
   }
 
-  JsonVariant& toVariant() {
+  // to<JsonVariant>()
+  template <typename T>
+  typename Internals::EnableIf<Internals::IsSame<T, JsonVariant>::value,
+                               T&>::type
+  to() {
     clear();
     return *this;
   }
@@ -62,4 +66,5 @@ class StaticJsonDocument : public JsonVariant {
     return _buffer.size();
   }
 };
+
 }  // namespace ArduinoJson

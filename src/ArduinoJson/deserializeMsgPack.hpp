@@ -16,7 +16,7 @@ typename Internals::EnableIf<!Internals::IsArray<TString>::value,
 deserializeMsgPack(TDocument &doc, const TString &json,
                    uint8_t nestingLimit = ARDUINOJSON_DEFAULT_NESTING_LIMIT) {
   return Internals::makeMsgPackDeserializer(&doc.buffer(), json, nestingLimit)
-      .parse(doc.toVariant());
+      .parse(doc.template to<JsonVariant>());
 }
 //
 // MsgPackError deserializeMsgPack(TDocument& doc, TString json);
@@ -27,7 +27,7 @@ MsgPackError deserializeMsgPack(
     TDocument &doc, TString *json,
     uint8_t nestingLimit = ARDUINOJSON_DEFAULT_NESTING_LIMIT) {
   return Internals::makeMsgPackDeserializer(&doc.buffer(), json, nestingLimit)
-      .parse(doc.toVariant());
+      .parse(doc.template to<JsonVariant>());
 }
 //
 // MsgPackError deserializeMsgPack(TDocument& doc, TString json);
@@ -38,6 +38,6 @@ MsgPackError deserializeMsgPack(
     TDocument &doc, TString &json,
     uint8_t nestingLimit = ARDUINOJSON_DEFAULT_NESTING_LIMIT) {
   return Internals::makeMsgPackDeserializer(&doc.buffer(), json, nestingLimit)
-      .parse(doc.toVariant());
+      .parse(doc.template to<JsonVariant>());
 }
 }  // namespace ArduinoJson
