@@ -22,8 +22,8 @@ TEST_CASE("Variable Length Array") {
     char vla[i];
     strcpy(vla, "[42]");
 
-    StaticJsonArray<JSON_ARRAY_SIZE(1)> arr;
-    JsonError err = deserializeJson(arr, vla);
+    StaticJsonDocument<JSON_ARRAY_SIZE(1)> doc;
+    JsonError err = deserializeJson(doc, vla);
 
     REQUIRE(err == JsonError::Ok);
   }

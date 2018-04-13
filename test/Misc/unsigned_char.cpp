@@ -13,8 +13,8 @@ TEST_CASE("unsigned char string") {
   SECTION("JsonBuffer::parseArray") {
     unsigned char json[] = "[42]";
 
-    StaticJsonArray<JSON_ARRAY_SIZE(1)> arr;
-    JsonError err = deserializeJson(arr, json);
+    StaticJsonDocument<JSON_ARRAY_SIZE(1)> doc;
+    JsonError err = deserializeJson(doc, json);
 
     REQUIRE(err == JsonError::Ok);
   }

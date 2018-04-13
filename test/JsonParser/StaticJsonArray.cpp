@@ -7,84 +7,85 @@
 
 TEST_CASE("deserializeJson(StaticJsonArray&)") {
   SECTION("BufferOfTheRightSizeForEmptyArray") {
-    StaticJsonArray<JSON_ARRAY_SIZE(0)> arr;
+    StaticJsonDocument<JSON_ARRAY_SIZE(0)> doc;
     char input[] = "[]";
 
-    JsonError err = deserializeJson(arr, input);
+    JsonError err = deserializeJson(doc, input);
 
     REQUIRE(err == JsonError::Ok);
   }
 
   SECTION("TooSmallBufferForArrayWithOneValue") {
-    StaticJsonArray<JSON_ARRAY_SIZE(1) - 1> arr;
+    StaticJsonDocument<JSON_ARRAY_SIZE(1) - 1> doc;
     char input[] = "[1]";
 
-    JsonError err = deserializeJson(arr, input);
+    JsonError err = deserializeJson(doc, input);
 
     REQUIRE(err != JsonError::Ok);
   }
 
   SECTION("BufferOfTheRightSizeForArrayWithOneValue") {
-    StaticJsonArray<JSON_ARRAY_SIZE(1)> arr;
+    StaticJsonDocument<JSON_ARRAY_SIZE(1)> doc;
     char input[] = "[1]";
 
-    JsonError err = deserializeJson(arr, input);
+    JsonError err = deserializeJson(doc, input);
 
     REQUIRE(err == JsonError::Ok);
   }
 
   SECTION("TooSmallBufferForArrayWithNestedObject") {
-    StaticJsonArray<JSON_ARRAY_SIZE(1) + JSON_OBJECT_SIZE(0) - 1> arr;
+    StaticJsonDocument<JSON_ARRAY_SIZE(1) + JSON_OBJECT_SIZE(0) - 1> doc;
     char input[] = "[{}]";
 
-    JsonError err = deserializeJson(arr, input);
+    JsonError err = deserializeJson(doc, input);
 
     REQUIRE(err != JsonError::Ok);
   }
 
   SECTION("BufferOfTheRightSizeForArrayWithNestedObject") {
-    StaticJsonArray<JSON_ARRAY_SIZE(1) + JSON_OBJECT_SIZE(0)> arr;
+    StaticJsonDocument<JSON_ARRAY_SIZE(1) + JSON_OBJECT_SIZE(0)> doc;
     char input[] = "[{}]";
 
-    JsonError err = deserializeJson(arr, input);
+    JsonError err = deserializeJson(doc, input);
 
     REQUIRE(err == JsonError::Ok);
   }
 
   SECTION("CharPtrNull") {
-    StaticJsonArray<100> arr;
+    StaticJsonDocument<100> doc;
 
-    JsonError err = deserializeJson(arr, static_cast<char*>(0));
+    JsonError err = deserializeJson(doc, static_cast<char*>(0));
 
     REQUIRE(err != JsonError::Ok);
   }
 
   SECTION("ConstCharPtrNull") {
-    StaticJsonArray<100> arr;
+    StaticJsonDocument<100> doc;
 
-    JsonError err = deserializeJson(arr, static_cast<const char*>(0));
+    JsonError err = deserializeJson(doc, static_cast<const char*>(0));
 
     REQUIRE(err != JsonError::Ok);
   }
 
   SECTION("CopyStringNotSpaces") {
-    StaticJsonArray<100> arr;
+    StaticJsonDocument<100> doc;
 
-    deserializeJson(arr, "  [ \"1234567\" ] ");
+    deserializeJson(doc, "  [ \"1234567\" ] ");
 
-    REQUIRE(JSON_ARRAY_SIZE(1) + sizeof("1234567") == arr.memoryUsage());
+    REQUIRE(JSON_ARRAY_SIZE(1) + sizeof("1234567") == doc.memoryUsage());
     // note: we use a string of 8 bytes to be sure that the StaticJsonBuffer
     // will not insert bytes to enforce alignement
   }
 
   SECTION("Should clear the JsonArray") {
-    StaticJsonArray<JSON_ARRAY_SIZE(4)> arr;
+    StaticJsonDocument<JSON_ARRAY_SIZE(4)> doc;
     char input[] = "[1,2,3,4]";
 
-    deserializeJson(arr, input);
-    deserializeJson(arr, "[]");
+    deserializeJson(doc, input);
+    deserializeJson(doc, "[]");
 
+    JsonArray& arr = doc.as<JsonArray>();
     REQUIRE(arr.size() == 0);
-    REQUIRE(arr.memoryUsage() == JSON_ARRAY_SIZE(0));
+    REQUIRE(doc.memoryUsage() == JSON_ARRAY_SIZE(0));
   }
 }
