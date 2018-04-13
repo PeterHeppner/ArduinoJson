@@ -25,7 +25,6 @@ TEST_CASE("MsgPackError") {
     TEST_STRINGIFICATION(NotSupported);
     TEST_STRINGIFICATION(NoMemory);
     TEST_STRINGIFICATION(NotAnArray);
-    TEST_STRINGIFICATION(NotAnObject);
     TEST_STRINGIFICATION(TooDeep);
   }
 
@@ -34,7 +33,6 @@ TEST_CASE("MsgPackError") {
     TEST_BOOLIFICATION(NotSupported, true);
     TEST_BOOLIFICATION(NoMemory, true);
     TEST_BOOLIFICATION(NotAnArray, true);
-    TEST_BOOLIFICATION(NotAnObject, true);
     TEST_BOOLIFICATION(TooDeep, true);
   }
 }

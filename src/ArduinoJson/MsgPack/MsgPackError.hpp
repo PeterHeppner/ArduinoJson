@@ -44,8 +44,6 @@ class MsgPackError {
         return "NoMemory";
       case NotAnArray:
         return "NotAnArray";
-      case NotAnObject:
-        return "NotAnObject";
       case TooDeep:
         return "TooDeep";
       default:

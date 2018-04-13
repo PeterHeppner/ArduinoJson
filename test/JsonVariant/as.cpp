@@ -192,7 +192,8 @@ TEST_CASE("JsonVariant::as()") {
   }
 
   SECTION("ObjectAsString") {
-    DynamicJsonObject obj;
+    DynamicJsonDocument doc;
+    JsonObject& obj = doc.becomeObject();
 
     obj["key"] = "value";
 
@@ -218,7 +219,8 @@ TEST_CASE("JsonVariant::as()") {
   }
 
   SECTION("ObjectAsJsonObject") {
-    DynamicJsonObject obj;
+    DynamicJsonDocument doc;
+    JsonObject& obj = doc.becomeObject();
 
     JsonVariant variant = obj;
     REQUIRE(&obj == &variant.as<JsonObject&>());

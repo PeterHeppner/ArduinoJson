@@ -23,7 +23,8 @@ TEST_CASE("std::stream") {
 
   SECTION("JsonObject") {
     std::ostringstream os;
-    DynamicJsonObject object;
+    DynamicJsonDocument doc;
+    JsonObject& object = doc.becomeObject();
     object["key"] = "value";
     os << object;
     REQUIRE("{\"key\":\"value\"}" == os.str());
@@ -31,7 +32,8 @@ TEST_CASE("std::stream") {
 
   SECTION("JsonObjectSubscript") {
     std::ostringstream os;
-    DynamicJsonObject object;
+    DynamicJsonDocument doc;
+    JsonObject& object = doc.becomeObject();
     object["key"] = "value";
     os << object["key"];
     REQUIRE("\"value\"" == os.str());
@@ -65,18 +67,18 @@ TEST_CASE("std::stream") {
 
   SECTION("ParseObject") {
     std::istringstream json(" { hello : world // comment\n }");
-    DynamicJsonObject obj;
-    JsonError err = deserializeJson(obj, json);
+    DynamicJsonDocument doc;
+    JsonError err = deserializeJson(doc, json);
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(1 == obj.size());
-    REQUIRE(std::string("world") == obj["hello"]);
+    REQUIRE(1 == doc.size());
+    REQUIRE(std::string("world") == doc["hello"]);
   }
 
   SECTION("ShouldNotReadPastTheEnd") {
     std::istringstream json("{}123");
-    DynamicJsonObject obj;
-    deserializeJson(obj, json);
+    DynamicJsonDocument doc;
+    deserializeJson(doc, json);
     REQUIRE('1' == json.get());
   }
 }
