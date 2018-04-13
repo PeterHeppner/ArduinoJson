@@ -25,8 +25,6 @@ class JsonParser {
         _reader(reader),
         _writer(writer),
         _nestingLimit(nestingLimit) {}
-  JsonError parse(JsonArray &destination);
-  JsonError parse(JsonObject &destination);
   JsonError parse(JsonVariant &destination);
 
  private:
