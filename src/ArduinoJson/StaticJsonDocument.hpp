@@ -56,7 +56,7 @@ class StaticJsonDocument : public JsonVariant {
     return *array;
   }
 
-  // JsonVarian to<JsonVariant>()
+  // JsonVariant to<JsonVariant>()
   template <typename T>
   typename Internals::EnableIf<Internals::IsSame<T, JsonVariant>::value,
                                T&>::type
