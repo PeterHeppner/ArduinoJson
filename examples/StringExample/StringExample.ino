@@ -18,37 +18,38 @@ void setup() {
   String input =
       "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
   deserializeJson(doc, input);
+  JsonObject& obj = doc.as<JsonObject>();
 
   // You can use a String to get an element of a JsonObject
   // No duplication is done.
-  long time = doc[String("time")];
+  long time = obj[String("time")];
 
   // You can use a String to set an element of a JsonObject
   // WARNING: the content of the String will be duplicated in the JsonBuffer.
-  doc[String("time")] = time;
+  obj[String("time")] = time;
 
   // You can get a String from a JsonObject or JsonArray:
   // No duplication is done, at least not in the JsonBuffer.
-  String sensor = doc["sensor"];
+  String sensor = obj["sensor"];
 
   // Unfortunately, the following doesn't work (issue #118):
-  // sensor = doc["sensor"]; // <-  error "ambiguous overload for 'operator='"
+  // sensor = obj["sensor"]; // <-  error "ambiguous overload for 'operator='"
   // As a workaround, you need to replace by:
-  sensor = doc["sensor"].as<String>();
+  sensor = obj["sensor"].as<String>();
 
   // You can set a String to a JsonObject or JsonArray:
   // WARNING: the content of the String will be duplicated in the JsonBuffer.
-  doc["sensor"] = sensor;
+  obj["sensor"] = sensor;
 
   // It works with RawJson too:
-  doc["sensor"] = RawJson(sensor);
+  obj["sensor"] = RawJson(sensor);
 
   // You can also concatenate strings
   // WARNING: the content of the String will be duplicated in the JsonBuffer.
-  doc[String("sen") + "sor"] = String("gp") + "s";
+  obj[String("sen") + "sor"] = String("gp") + "s";
 
   // You can compare the content of a JsonObject with a String
-  if (doc["sensor"] == sensor) {
+  if (obj["sensor"] == sensor) {
     // ...
   }
 

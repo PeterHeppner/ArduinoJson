@@ -36,7 +36,8 @@ void setup() {
 
   // Test if parsing succeeds.
   if (error) {
-    Serial.println("deserializeJson() failed");
+    Serial.print(F("deserializeJson() failed: "));
+    Serial.println(error.c_str());
     return;
   }
 

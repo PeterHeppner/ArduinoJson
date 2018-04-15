@@ -78,16 +78,18 @@ void setup() {
   // Parse JSON object
   JsonError error = deserializeJson(doc, client);
   if (error) {
-    Serial.println(F("Parsing failed!"));
+    Serial.print(F("deserializeJson() failed: "));
+    Serial.println(error.c_str());
     return;
   }
 
   // Extract values
+  JsonObject& root = doc.as<JsonObject>();
   Serial.println(F("Response:"));
-  Serial.println(doc["sensor"].as<char*>());
-  Serial.println(doc["time"].as<char*>());
-  Serial.println(doc["data"][0].as<char*>());
-  Serial.println(doc["data"][1].as<char*>());
+  Serial.println(root["sensor"].as<char*>());
+  Serial.println(root["time"].as<char*>());
+  Serial.println(root["data"][0].as<char*>());
+  Serial.println(root["data"][1].as<char*>());
 
   // Disconnect
   client.stop();

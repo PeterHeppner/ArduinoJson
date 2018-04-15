@@ -49,7 +49,8 @@ void setup() {
 
   // Test if parsing succeeds.
   if (error) {
-    Serial.println("deserializeMsgPack() failed");
+    Serial.print("deserializeMsgPack() failed: ");
+    Serial.println(error.c_str());
     return;
   }
 

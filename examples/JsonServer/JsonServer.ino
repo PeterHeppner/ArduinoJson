@@ -53,7 +53,7 @@ void loop() {
 
   // Allocate the JSON document
   // Use arduinojson.org/assistant to compute the capacity.
-  StaticJsonDocument<500> root;
+  StaticJsonDocument<500> doc;
 
   // Make our document represent an object
   JsonObject& root = doc.to<JsonObject>();

@@ -21,26 +21,27 @@ void setup() {
   // JsonBuffer.
   deserializeJson(doc, F("{\"sensor\":\"gps\",\"time\":1351824120,"
                          "\"data\":[48.756080,2.302038]}"));
+  JsonObject& obj = doc.as<JsonObject>();
 
   // You can use a Flash String to get an element of a JsonObject
   // No duplication is done.
-  long time = doc[F("time")];
+  long time = obj[F("time")];
 
   // You can use a Flash String to set an element of a JsonObject
   // WARNING: the content of the Flash String will be duplicated in the
   // JsonBuffer.
-  doc[F("time")] = time;
+  obj[F("time")] = time;
 
   // You can set a Flash String to a JsonObject or JsonArray:
   // WARNING: the content of the Flash String will be duplicated in the
   // JsonBuffer.
-  doc["sensor"] = F("gps");
+  obj["sensor"] = F("gps");
 
   // It works with RawJson too:
-  doc["sensor"] = RawJson(F("\"gps\""));
+  obj["sensor"] = RawJson(F("\"gps\""));
 
   // You can compare the content of a JsonVariant to a Flash String
-  if (doc["sensor"] == F("gps")) {
+  if (obj["sensor"] == F("gps")) {
     // ...
   }
 
