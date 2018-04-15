@@ -5,7 +5,7 @@
 #include <ArduinoJson.h>
 #include <catch.hpp>
 
-TEST_CASE("deserialize MsgPack doc") {
+TEST_CASE("deserialize MsgPack object") {
   DynamicJsonDocument doc;
 
   SECTION("fixmap") {
@@ -13,20 +13,24 @@ TEST_CASE("deserialize MsgPack doc") {
       const char* input = "\x80";
 
       MsgPackError error = deserializeMsgPack(doc, input);
+      JsonObject& obj = doc.as<JsonObject>();
 
       REQUIRE(error == MsgPackError::Ok);
-      REQUIRE(doc.size() == 0);
+      REQUIRE(doc.is<JsonObject>());
+      REQUIRE(obj.size() == 0);
     }
 
     SECTION("two integers") {
       const char* input = "\x82\xA3one\x01\xA3two\x02";
 
       MsgPackError error = deserializeMsgPack(doc, input);
+      JsonObject& obj = doc.as<JsonObject>();
 
       REQUIRE(error == MsgPackError::Ok);
-      REQUIRE(doc.size() == 2);
-      REQUIRE(doc["one"] == 1);
-      REQUIRE(doc["two"] == 2);
+      REQUIRE(doc.is<JsonObject>());
+      REQUIRE(obj.size() == 2);
+      REQUIRE(obj["one"] == 1);
+      REQUIRE(obj["two"] == 2);
     }
   }
 
@@ -35,20 +39,24 @@ TEST_CASE("deserialize MsgPack doc") {
       const char* input = "\xDE\x00\x00";
 
       MsgPackError error = deserializeMsgPack(doc, input);
+      JsonObject& obj = doc.as<JsonObject>();
 
       REQUIRE(error == MsgPackError::Ok);
-      REQUIRE(doc.size() == 0);
+      REQUIRE(doc.is<JsonObject>());
+      REQUIRE(obj.size() == 0);
     }
 
     SECTION("two strings") {
       const char* input = "\xDE\x00\x02\xA1H\xA5hello\xA1W\xA5world";
 
       MsgPackError error = deserializeMsgPack(doc, input);
+      JsonObject& obj = doc.as<JsonObject>();
 
       REQUIRE(error == MsgPackError::Ok);
-      REQUIRE(doc.size() == 2);
-      REQUIRE(doc["H"] == "hello");
-      REQUIRE(doc["W"] == "world");
+      REQUIRE(doc.is<JsonObject>());
+      REQUIRE(obj.size() == 2);
+      REQUIRE(obj["H"] == "hello");
+      REQUIRE(obj["W"] == "world");
     }
   }
 
@@ -57,9 +65,11 @@ TEST_CASE("deserialize MsgPack doc") {
       const char* input = "\xDF\x00\x00\x00\x00";
 
       MsgPackError error = deserializeMsgPack(doc, input);
+      JsonObject& obj = doc.as<JsonObject>();
 
       REQUIRE(error == MsgPackError::Ok);
-      REQUIRE(doc.size() == 0);
+      REQUIRE(doc.is<JsonObject>());
+      REQUIRE(obj.size() == 0);
     }
 
     SECTION("two floats") {
@@ -68,11 +78,13 @@ TEST_CASE("deserialize MsgPack doc") {
           "\xF5\xC3";
 
       MsgPackError error = deserializeMsgPack(doc, input);
+      JsonObject& obj = doc.as<JsonObject>();
 
       REQUIRE(error == MsgPackError::Ok);
-      REQUIRE(doc.size() == 2);
-      REQUIRE(doc["zero"] == 0.0f);
-      REQUIRE(doc["pi"] == 3.14f);
+      REQUIRE(doc.is<JsonObject>());
+      REQUIRE(obj.size() == 2);
+      REQUIRE(obj["zero"] == 0.0f);
+      REQUIRE(obj["pi"] == 3.14f);
     }
   }
 }

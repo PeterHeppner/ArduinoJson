@@ -15,20 +15,6 @@ class StaticJsonDocument {
   JsonVariant _root;
 
  public:
-  template <typename T>
-  StaticJsonDocument& operator=(const T& value) {
-    _buffer.clear();
-    _root = value;
-    return *this;
-  }
-
-  template <typename T>
-  StaticJsonDocument& operator=(const T* value) {
-    _buffer.clear();
-    _root = value;
-    return *this;
-  }
-
   Internals::StaticJsonBufferBase& buffer() {
     return _buffer;
   }
@@ -83,6 +69,11 @@ class StaticJsonDocument {
 
   size_t memoryUsage() const {
     return _buffer.size();
+  }
+
+  template <typename Visitor>
+  void visit(Visitor visitor) const {
+    return _root.visit(visitor);
   }
 };
 

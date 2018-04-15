@@ -20,67 +20,68 @@ TEST_CASE("Gbathree") {
       "\"measlights\":[[15,15,15,15],[15,15,15,15],[15,15,15,15],[15,15,"
       "15,15]],\"measlights2\":[[15,15,15,15],[15,15,15,15],[15,15,15,15],"
       "[15,15,15,15]],\"altc\":[2,2,2,2],\"altd\":[2,2,2,2]}");
+  JsonObject& root = doc.as<JsonObject>();
 
   SECTION("Success") {
     REQUIRE(error == JsonError::Ok);
   }
 
   SECTION("ProtocolName") {
-    REQUIRE("fluorescence" == doc["protocol_name"]);
+    REQUIRE("fluorescence" == root["protocol_name"]);
   }
 
   SECTION("Repeats") {
-    REQUIRE(1 == doc["repeats"]);
+    REQUIRE(1 == root["repeats"]);
   }
 
   SECTION("Wait") {
-    REQUIRE(0 == doc["wait"]);
+    REQUIRE(0 == root["wait"]);
   }
 
   SECTION("Measurements") {
-    REQUIRE(3 == doc["measurements"]);
+    REQUIRE(3 == root["measurements"]);
   }
 
   SECTION("Meas2_Light") {
-    REQUIRE(15 == doc["meas2_light"]);
+    REQUIRE(15 == root["meas2_light"]);
   }
 
   SECTION("Meas1_Baseline") {
-    REQUIRE(0 == doc["meas1_baseline"]);
+    REQUIRE(0 == root["meas1_baseline"]);
   }
 
   SECTION("Act_Light") {
-    REQUIRE(20 == doc["act_light"]);
+    REQUIRE(20 == root["act_light"]);
   }
 
   SECTION("Pulsesize") {
-    REQUIRE(25 == doc["pulsesize"]);
+    REQUIRE(25 == root["pulsesize"]);
   }
 
   SECTION("Pulsedistance") {
-    REQUIRE(10000 == doc["pulsedistance"]);
+    REQUIRE(10000 == root["pulsedistance"]);
   }
 
   SECTION("Actintensity1") {
-    REQUIRE(50 == doc["actintensity1"]);
+    REQUIRE(50 == root["actintensity1"]);
   }
 
   SECTION("Actintensity2") {
-    REQUIRE(255 == doc["actintensity2"]);
+    REQUIRE(255 == root["actintensity2"]);
   }
 
   SECTION("Measintensity") {
-    REQUIRE(255 == doc["measintensity"]);
+    REQUIRE(255 == root["measintensity"]);
   }
 
   SECTION("Calintensity") {
-    REQUIRE(255 == doc["calintensity"]);
+    REQUIRE(255 == root["calintensity"]);
   }
 
   SECTION("Pulses") {
     // "pulses":[50,50,50]
 
-    JsonArray& array = doc["pulses"];
+    JsonArray& array = root["pulses"];
     REQUIRE(array.success());
 
     REQUIRE(3 == array.size());
@@ -93,7 +94,7 @@ TEST_CASE("Gbathree") {
   SECTION("Act") {
     // "act":[2,1,2,2]
 
-    JsonArray& array = doc["act"];
+    JsonArray& array = root["act"];
     REQUIRE(array.success());
 
     REQUIRE(4 == array.size());
@@ -106,7 +107,7 @@ TEST_CASE("Gbathree") {
   SECTION("Detectors") {
     // "detectors":[[34,34,34,34],[34,34,34,34],[34,34,34,34],[34,34,34,34]]
 
-    JsonArray& array = doc["detectors"];
+    JsonArray& array = root["detectors"];
     REQUIRE(array.success());
     REQUIRE(4 == array.size());
 
@@ -123,7 +124,7 @@ TEST_CASE("Gbathree") {
   SECTION("Alta") {
     // alta:[2,2,2,2]
 
-    JsonArray& array = doc["alta"];
+    JsonArray& array = root["alta"];
     REQUIRE(array.success());
 
     REQUIRE(4 == array.size());
@@ -136,7 +137,7 @@ TEST_CASE("Gbathree") {
   SECTION("Altb") {
     // altb:[2,2,2,2]
 
-    JsonArray& array = doc["altb"];
+    JsonArray& array = root["altb"];
     REQUIRE(array.success());
 
     REQUIRE(4 == array.size());
@@ -149,7 +150,7 @@ TEST_CASE("Gbathree") {
   SECTION("Measlights") {
     // "measlights":[[15,15,15,15],[15,15,15,15],[15,15,15,15],[15,15,15,15]]
 
-    JsonArray& array = doc["measlights"];
+    JsonArray& array = root["measlights"];
     REQUIRE(array.success());
     REQUIRE(4 == array.size());
 
@@ -167,7 +168,7 @@ TEST_CASE("Gbathree") {
   SECTION("Measlights2") {
     // "measlights2":[[15,15,15,15],[15,15,15,15],[15,15,15,15],[15,15,15,15]]
 
-    JsonArray& array = doc["measlights2"];
+    JsonArray& array = root["measlights2"];
     REQUIRE(array.success());
     REQUIRE(4 == array.size());
 
@@ -184,7 +185,7 @@ TEST_CASE("Gbathree") {
   SECTION("Altc") {
     // altc:[2,2,2,2]
 
-    JsonArray& array = doc["altc"];
+    JsonArray& array = root["altc"];
     REQUIRE(array.success());
 
     REQUIRE(4 == array.size());
@@ -197,7 +198,7 @@ TEST_CASE("Gbathree") {
   SECTION("Altd") {
     // altd:[2,2,2,2]
 
-    JsonArray& array = doc["altd"];
+    JsonArray& array = root["altd"];
     REQUIRE(array.success());
 
     REQUIRE(4 == array.size());

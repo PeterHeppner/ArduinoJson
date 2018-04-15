@@ -30,7 +30,7 @@ TEST_CASE("deserializeJson(DynamicJsonDocument&)") {
     REQUIRE(err == JsonError::Ok);
     REQUIRE(doc.is<int>());
     REQUIRE_FALSE(doc.is<bool>());
-    REQUIRE(doc == -42);
+    REQUIRE(doc.as<int>() == -42);
   }
 
   SECTION("Double") {
@@ -63,7 +63,7 @@ TEST_CASE("deserializeJson(DynamicJsonDocument&)") {
 
     REQUIRE(err == JsonError::Ok);
     REQUIRE(doc.is<bool>());
-    REQUIRE(doc == true);
+    REQUIRE(doc.as<bool>() == true);
   }
 
   SECTION("False") {
@@ -71,7 +71,7 @@ TEST_CASE("deserializeJson(DynamicJsonDocument&)") {
 
     REQUIRE(err == JsonError::Ok);
     REQUIRE(doc.is<bool>());
-    REQUIRE(doc == false);
+    REQUIRE(doc.as<bool>() == false);
   }
 
   SECTION("OpenBrace") {

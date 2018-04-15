@@ -72,10 +72,11 @@ TEST_CASE("std::stream") {
     std::istringstream json(" { hello : world // comment\n }");
     DynamicJsonDocument doc;
     JsonError err = deserializeJson(doc, json);
+    JsonObject& obj = doc.as<JsonObject>();
 
     REQUIRE(err == JsonError::Ok);
-    REQUIRE(1 == doc.size());
-    REQUIRE(std::string("world") == doc["hello"]);
+    REQUIRE(1 == obj.size());
+    REQUIRE(std::string("world") == obj["hello"]);
   }
 
   SECTION("ShouldNotReadPastTheEnd") {

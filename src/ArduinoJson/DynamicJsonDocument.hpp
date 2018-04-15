@@ -11,25 +11,22 @@
 
 namespace ArduinoJson {
 
-class DynamicJsonDocument : public JsonVariant {
+class DynamicJsonDocument {
   DynamicJsonBuffer _buffer;
+  JsonVariant _root;
 
  public:
-  DynamicJsonDocument() : JsonVariant() {}
-  DynamicJsonDocument(size_t capacity) : JsonVariant(), _buffer(capacity) {}
+  DynamicJsonDocument() {}
+  DynamicJsonDocument(size_t capacity) : _buffer(capacity) {}
 
   template <typename T>
-  DynamicJsonDocument& operator=(const T& value) {
-    _buffer.clear();
-    JsonVariant::operator=(value);
-    return *this;
+  bool is() const {
+    return _root.is<T>();
   }
 
   template <typename T>
-  DynamicJsonDocument& operator=(const T* value) {
-    _buffer.clear();
-    JsonVariant::operator=(value);
-    return *this;
+  typename Internals::JsonVariantAs<T>::type as() const {
+    return _root.as<T>();
   }
 
   // JsonObject& to<JsonObject>()
@@ -40,7 +37,7 @@ class DynamicJsonDocument : public JsonVariant {
     clear();
     JsonObject* object = new (&_buffer) JsonObject(&_buffer);
     if (!object) return JsonObject::invalid();
-    JsonVariant::operator=(object);
+    _root = object;
     return *object;
   }
 
@@ -52,7 +49,7 @@ class DynamicJsonDocument : public JsonVariant {
     clear();
     JsonArray* array = new (&_buffer) JsonArray(&_buffer);
     if (!array) return JsonArray::invalid();
-    JsonVariant::operator=(array);
+    _root = array;
     return *array;
   }
 
@@ -62,7 +59,7 @@ class DynamicJsonDocument : public JsonVariant {
                                T&>::type
   to() {
     clear();
-    return *this;
+    return _root;
   }
 
   DynamicJsonBuffer& buffer() {
@@ -71,11 +68,16 @@ class DynamicJsonDocument : public JsonVariant {
 
   void clear() {
     _buffer.clear();
-    JsonVariant::operator=(JsonVariant());
+    _root = JsonVariant();
   }
 
   size_t memoryUsage() const {
     return _buffer.size();
+  }
+
+  template <typename Visitor>
+  void visit(Visitor visitor) const {
+    return _root.visit(visitor);
   }
 };
 }  // namespace ArduinoJson

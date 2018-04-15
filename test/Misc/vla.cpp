@@ -77,8 +77,9 @@ TEST_CASE("Variable Length Array") {
     char vla[i];
     strcpy(vla, "hello");
 
-    DynamicJsonDocument variant;
-    deserializeJson(variant, "{\"hello\":\"world\"}");
+    DynamicJsonDocument doc;
+    deserializeJson(doc, "{\"hello\":\"world\"}");
+    JsonVariant variant = doc.as<JsonVariant>();
 
     REQUIRE(std::string("world") == variant[vla]);
   }
@@ -90,8 +91,9 @@ TEST_CASE("Variable Length Array") {
     char vla[i];
     strcpy(vla, "hello");
 
-    DynamicJsonDocument variant;
-    deserializeJson(variant, "{\"hello\":\"world\"}");
+    DynamicJsonDocument doc;
+    deserializeJson(doc, "{\"hello\":\"world\"}");
+    const JsonVariant variant = doc.as<JsonVariant>();
 
     REQUIRE(std::string("world") == variant[vla]);
   }
@@ -102,7 +104,7 @@ TEST_CASE("Variable Length Array") {
     char vla[i];
     strcpy(vla, "hello");
 
-    DynamicJsonDocument variant;
+    JsonVariant variant;
     variant = "hello";
 
     REQUIRE((vla == variant));
@@ -116,7 +118,7 @@ TEST_CASE("Variable Length Array") {
     char vla[i];
     strcpy(vla, "hello");
 
-    DynamicJsonDocument variant;
+    JsonVariant variant;
     variant = "world";
 
     REQUIRE((vla != variant));

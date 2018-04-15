@@ -97,8 +97,9 @@ TEST_CASE("JsonVariant comparisons") {
   }
 
   SECTION("StringLiteral") {
-    DynamicJsonDocument variant;
-    deserializeJson(variant, "\"hello\"");
+    DynamicJsonDocument doc;
+    deserializeJson(doc, "\"hello\"");
+    JsonVariant variant = doc.as<JsonVariant>();
 
     REQUIRE(variant == "hello");
     REQUIRE_FALSE(variant != "hello");
@@ -114,8 +115,7 @@ TEST_CASE("JsonVariant comparisons") {
   }
 
   SECTION("String") {
-    DynamicJsonDocument variant;
-    deserializeJson(variant, "\"hello\"");
+    JsonVariant variant = "hello";
 
     REQUIRE(variant == std::string("hello"));
     REQUIRE_FALSE(variant != std::string("hello"));

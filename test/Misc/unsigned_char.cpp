@@ -49,8 +49,9 @@ TEST_CASE("unsigned char string") {
   SECTION("JsonVariant::operator[]") {
     unsigned char key[] = "hello";
 
-    DynamicJsonDocument variant;
-    deserializeJson(variant, "{\"hello\":\"world\"}");
+    DynamicJsonDocument doc;
+    deserializeJson(doc, "{\"hello\":\"world\"}");
+    JsonVariant variant = doc.as<JsonVariant>();
 
     REQUIRE(std::string("world") == variant[key]);
   }
@@ -60,8 +61,9 @@ TEST_CASE("unsigned char string") {
   SECTION("JsonVariant::operator[] const") {
     unsigned char key[] = "hello";
 
-    DynamicJsonDocument variant;
-    deserializeJson(variant, "{\"hello\":\"world\"}");
+    DynamicJsonDocument doc;
+    deserializeJson(doc, "{\"hello\":\"world\"}");
+    const JsonVariant variant = doc.as<JsonVariant>();
 
     REQUIRE(std::string("world") == variant[key]);
   }
@@ -70,7 +72,7 @@ TEST_CASE("unsigned char string") {
   SECTION("JsonVariant::operator==") {
     unsigned char comparand[] = "hello";
 
-    DynamicJsonDocument variant;
+    JsonVariant variant;
     variant = "hello";
 
     REQUIRE(comparand == variant);
@@ -82,7 +84,7 @@ TEST_CASE("unsigned char string") {
   SECTION("JsonVariant::operator!=") {
     unsigned char comparand[] = "hello";
 
-    DynamicJsonDocument variant;
+    JsonVariant variant;
     variant = "world";
 
     REQUIRE(comparand != variant);

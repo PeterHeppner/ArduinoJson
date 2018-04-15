@@ -194,12 +194,12 @@ TEST_CASE("std::string") {
     }
 
     SECTION("remove()") {
-      char json[] = "{\"key\":\"value\"}";
-      deserializeJson(doc, json);
-      REQUIRE(1 == doc.size());
-      JsonObject &obj = doc.as<JsonObject>();
+      JsonObject &obj = doc.to<JsonObject>();
+      obj["key"] = "value";
+
       obj.remove(std::string("key"));
-      REQUIRE(0 == doc.size());
+
+      REQUIRE(0 == obj.size());
     }
 
     SECTION("operator[], set key") {
