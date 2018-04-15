@@ -10,26 +10,37 @@
 namespace ArduinoJson {
 
 template <size_t CAPACITY = sizeof(JsonVariant)>
-class StaticJsonDocument : public JsonVariant {
+class StaticJsonDocument {
   StaticJsonBuffer<CAPACITY> _buffer;
+  JsonVariant _root;
 
  public:
   template <typename T>
   StaticJsonDocument& operator=(const T& value) {
     _buffer.clear();
-    JsonVariant::operator=(value);
+    _root = value;
     return *this;
   }
 
   template <typename T>
   StaticJsonDocument& operator=(const T* value) {
     _buffer.clear();
-    JsonVariant::operator=(value);
+    _root = value;
     return *this;
   }
 
   Internals::StaticJsonBufferBase& buffer() {
     return _buffer;
+  }
+
+  template <typename T>
+  bool is() const {
+    return _root.is<T>();
+  }
+
+  template <typename T>
+  typename Internals::JsonVariantAs<T>::type as() const {
+    return _root.as<T>();
   }
 
   // JsonObject& to<JsonObject>()
@@ -40,7 +51,7 @@ class StaticJsonDocument : public JsonVariant {
     clear();
     JsonObject* object = new (&_buffer) JsonObject(&_buffer);
     if (!object) return JsonObject::invalid();
-    JsonVariant::operator=(object);
+    _root = object;
     return *object;
   }
 
@@ -52,7 +63,7 @@ class StaticJsonDocument : public JsonVariant {
     clear();
     JsonArray* array = new (&_buffer) JsonArray(&_buffer);
     if (!array) return JsonArray::invalid();
-    JsonVariant::operator=(array);
+    _root = array;
     return *array;
   }
 
@@ -62,12 +73,12 @@ class StaticJsonDocument : public JsonVariant {
                                T&>::type
   to() {
     clear();
-    return *this;
+    return _root;
   }
 
   void clear() {
     _buffer.clear();
-    JsonVariant::operator=(JsonVariant());
+    _root = JsonVariant();
   }
 
   size_t memoryUsage() const {

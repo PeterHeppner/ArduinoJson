@@ -74,7 +74,7 @@ TEST_CASE("deserializeJson(StaticJsonObject&)") {
     deserializeJson(doc, input);
     deserializeJson(doc, "{}");
 
-    REQUIRE(doc.size() == 0);
+    REQUIRE(doc.as<JsonObject>().size() == 0);
     REQUIRE(doc.memoryUsage() == JSON_OBJECT_SIZE(0));
   }
 }

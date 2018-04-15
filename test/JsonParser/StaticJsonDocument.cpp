@@ -10,15 +10,16 @@ using namespace Catch::Matchers;
 TEST_CASE("deserializeJson(StaticJsonDocument&)") {
   SECTION("Array") {
     StaticJsonDocument<JSON_ARRAY_SIZE(2)> doc;
-
     char input[] = "[1,2]";
+
     JsonError err = deserializeJson(doc, input);
+    JsonArray& arr = doc.as<JsonArray>();
 
     REQUIRE(err == JsonError::Ok);
     REQUIRE(doc.is<JsonArray>());
-    REQUIRE(doc[0] == 1);
-    REQUIRE(doc[1] == 2);
     REQUIRE(doc.memoryUsage() == JSON_ARRAY_SIZE(2));
+    REQUIRE(arr[0] == 1);
+    REQUIRE(arr[1] == 2);
   }
 
   SECTION("Should clear the JsonDocument") {
