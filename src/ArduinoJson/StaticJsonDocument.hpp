@@ -11,7 +11,7 @@ namespace ArduinoJson {
 
 template <size_t CAPACITY = sizeof(JsonVariant)>
 class StaticJsonDocument {
-  StaticJsonBuffer<CAPACITY> _buffer;
+  Internals::StaticJsonBuffer<CAPACITY> _buffer;
   JsonVariant _root;
 
  public:
