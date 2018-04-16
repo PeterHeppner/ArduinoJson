@@ -8,7 +8,7 @@
 #define SHOULD_WORK(expression) REQUIRE(JsonError::Ok == expression);
 #define SHOULD_FAIL(expression) REQUIRE(JsonError::TooDeep == expression);
 
-TEST_CASE("JsonParser nestingLimit") {
+TEST_CASE("JsonDeserializer nestingLimit") {
   DynamicJsonDocument doc;
 
   SECTION("limit = 0") {

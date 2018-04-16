@@ -15,14 +15,11 @@
 namespace ArduinoJson {
 namespace Internals {
 
-// Parse JSON string to create JsonArrays and JsonObjects
-// This internal class is not indended to be used directly.
-// Instead, use JsonBuffer.parseArray() or .parseObject()
 template <typename TReader, typename TWriter>
-class JsonParser {
+class JsonDeserializer {
  public:
-  JsonParser(JsonBuffer *buffer, TReader reader, TWriter writer,
-             uint8_t nestingLimit)
+  JsonDeserializer(JsonBuffer *buffer, TReader reader, TWriter writer,
+                   uint8_t nestingLimit)
       : _buffer(buffer),
         _reader(reader),
         _writer(writer),
@@ -43,7 +40,7 @@ class JsonParser {
   }
 
  private:
-  JsonParser &operator=(const JsonParser &);  // non-copiable
+  JsonDeserializer &operator=(const JsonDeserializer &);  // non-copiable
 
   static bool eat(TReader &reader, char charToSkip) {
     skipSpacesAndComments(reader);
@@ -190,7 +187,7 @@ class JsonParser {
 template <typename TJsonBuffer, typename TString, typename Enable = void>
 struct JsonParserBuilder {
   typedef typename StringTraits<TString>::Reader InputReader;
-  typedef JsonParser<InputReader, TJsonBuffer &> TParser;
+  typedef JsonDeserializer<InputReader, TJsonBuffer &> TParser;
 
   static TParser makeParser(TJsonBuffer *buffer, TString &json,
                             uint8_t nestingLimit) {
@@ -203,7 +200,7 @@ struct JsonParserBuilder<TJsonBuffer, TChar *,
                          typename EnableIf<!IsConst<TChar>::value>::type> {
   typedef typename StringTraits<TChar *>::Reader TReader;
   typedef StringWriter<TChar> TWriter;
-  typedef JsonParser<TReader, TWriter> TParser;
+  typedef JsonDeserializer<TReader, TWriter> TParser;
 
   static TParser makeParser(TJsonBuffer *buffer, TChar *json,
                             uint8_t nestingLimit) {

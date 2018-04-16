@@ -2,7 +2,7 @@
 # Copyright Benoit Blanchon 2014-2018
 # MIT License
 
-add_executable(JsonParserTests
+add_executable(JsonDeserializerTests
 	DynamicJsonArray.cpp
 	deserializeObject.cpp
 	DynamicJsonDocument.cpp
@@ -13,5 +13,5 @@ add_executable(JsonParserTests
 	StaticJsonDocument.cpp
 )
 
-target_link_libraries(JsonParserTests catch)
-add_test(JsonParser JsonParserTests)
+target_link_libraries(JsonDeserializerTests catch)
+add_test(JsonDeserializer JsonDeserializerTests)
