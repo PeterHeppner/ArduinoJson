@@ -5,7 +5,7 @@
 #include <ArduinoJson.h>
 #include <catch.hpp>
 
-TEST_CASE("deserializeJson(StaticJsonObject&)") {
+TEST_CASE("deserialize JSON object with StaticJsonDocument") {
   SECTION("BufferOfTheRightSizeForEmptyObject") {
     StaticJsonDocument<JSON_OBJECT_SIZE(0)> doc;
     char input[] = "{}";

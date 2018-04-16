@@ -5,7 +5,7 @@
 #include <ArduinoJson.h>
 #include <catch.hpp>
 
-TEST_CASE("deserializeJson(DynamicJsonArray&)") {
+TEST_CASE("deserialize JSON array") {
   DynamicJsonDocument doc;
 
   SECTION("An empty array") {

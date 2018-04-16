@@ -5,7 +5,7 @@
 #include <ArduinoJson.h>
 #include <catch.hpp>
 
-TEST_CASE("deserializeJson(StaticJsonArray&)") {
+TEST_CASE("deserialize JSON array with a StaticJsonDocument") {
   SECTION("BufferOfTheRightSizeForEmptyArray") {
     StaticJsonDocument<JSON_ARRAY_SIZE(0)> doc;
     char input[] = "[]";
@@ -87,5 +87,19 @@ TEST_CASE("deserializeJson(StaticJsonArray&)") {
     JsonArray& arr = doc.as<JsonArray>();
     REQUIRE(arr.size() == 0);
     REQUIRE(doc.memoryUsage() == JSON_ARRAY_SIZE(0));
+  }
+
+  SECTION("Array") {
+    StaticJsonDocument<JSON_ARRAY_SIZE(2)> doc;
+    char input[] = "[1,2]";
+
+    JsonError err = deserializeJson(doc, input);
+    JsonArray& arr = doc.as<JsonArray>();
+
+    REQUIRE(err == JsonError::Ok);
+    REQUIRE(doc.is<JsonArray>());
+    REQUIRE(doc.memoryUsage() == JSON_ARRAY_SIZE(2));
+    REQUIRE(arr[0] == 1);
+    REQUIRE(arr[1] == 2);
   }
 }

@@ -3,14 +3,13 @@
 # MIT License
 
 add_executable(JsonDeserializerTests
-	DynamicJsonArray.cpp
-	deserializeObject.cpp
-	DynamicJsonDocument.cpp
+	deserializeJsonArray.cpp
+	deserializeJsonArrayStatic.cpp
+	deserializeJsonObject.cpp
+	deserializeJsonObjectStatic.cpp
+	deserializeJsonValue.cpp
 	JsonError.cpp
 	nestingLimit.cpp
-	StaticJsonArray.cpp
-	StaticJsonObject.cpp
-	StaticJsonDocument.cpp
 )
 
 target_link_libraries(JsonDeserializerTests catch)
