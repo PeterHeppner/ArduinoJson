@@ -69,8 +69,6 @@ void checkIsString(JsonVariant var) {
 }
 
 TEST_CASE("JsonVariant::is()") {
-  DynamicJsonBuffer jsonBuffer;
-
   SECTION("JsonArray") {
     DynamicJsonDocument doc;
     JsonArray& array = doc.to<JsonArray>();

@@ -12,7 +12,7 @@
 namespace ArduinoJson {
 
 class DynamicJsonDocument {
-  DynamicJsonBuffer _buffer;
+  Internals::DynamicJsonBuffer _buffer;
   JsonVariant _root;
 
  public:
@@ -62,7 +62,7 @@ class DynamicJsonDocument {
     return _root;
   }
 
-  DynamicJsonBuffer& buffer() {
+  Internals::DynamicJsonBuffer& buffer() {
     return _buffer;
   }
 

@@ -11,8 +11,6 @@ static void eraseString(std::string &str) {
 }
 
 TEST_CASE("std::string") {
-  DynamicJsonBuffer jb;
-
   SECTION("deserializeJson duplicates content") {
     std::string json("[\"hello\"]");
 
